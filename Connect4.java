@@ -1,6 +1,5 @@
 public class Connect4 {
-
-    //TODO Everything.
+    // TODO Everything.
     // Check the fucking project board in github.
 
 }
