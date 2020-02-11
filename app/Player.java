@@ -1,4 +1,6 @@
+package app;
 
+import java.awt.Color;
 
 public class Player {
     private final int id;
@@ -10,11 +12,11 @@ public class Player {
         this.color = color;
     }
 
-    public getID() {
+    public int getID() {
         return id;
     }
 
-    public getColor() {
+    public Color getColor() {
         return color;
     }
 }

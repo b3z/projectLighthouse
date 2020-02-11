@@ -1,3 +1,6 @@
+package app;
+
+import java.awt.Color;
 
 public class Model {
 
@@ -62,7 +65,7 @@ public class Model {
             i--;
         }
         board[currentColumn][i] = currentPlayer;
-        //TODO unschön...
+        //TODO weil unschön...
         if(currentPlayer == player1) {
             currentPlayer = player2;
         }else {
@@ -77,30 +80,15 @@ public class Model {
      * changes the selected column.
      * @param dir the cahnged direction.
      */
-    public void changeColumn(Diretion dir) {
-        switch(dir) {
-            case RIGHT:
-                if(currentColumn >= BOARD_WIDTH - 1) {
-                    currentColumn = 0;
-                }else {
-                    currentColumn++;
-                }
-                break;
-            case LEFT:
-                if(currentColumn <= 0) {
-                    currentColumn = BOARD_WIDTH - 1;
-                }else {
-                    currentColumn--;
-                }
-                break;
-        }
+    public void changeColumn(Direction dir) {
+        currentColumn = currentColumn + dir.getInt();
     }
     /**
      * updates both views.
      */
     private void updateViews() {
-        localView.update();
-        lighthouseView.update();
+        localView.update(this);
+        // lighthouseView.update(this);
     }
 
     /**
@@ -108,36 +96,24 @@ public class Model {
      * @param winner the player that won the game.
      */
     private void gameOver(Player winner) {
-        localView.gameWon(winner);
-        lighthouseView.gameWon(winner);
+        // localView.gameWon(winner);
+        // lighthouseView.gameWon(winner);
     }
 
     /**
      * checks Status of game.
      */
     private void checkStatus() {
-        for(int j = 0; j < board[j].length; j++) {
-            int consecuitive = 0;
-            Player lastToken = 0;
-            for(int i = 0; i < board.length; i++) {
-                if(board[i][j] == lastToken && lastToken != null) {
-                    consecuitive++;
-                }
-                if(consecuitive == 2) {
-                    gameOver(lastToken);
-                    break;
-                }
-                lastToken = board[i][j];
-            }
-
-        }
+        checkHorizontals();
+        checkVertikals();
+        checkDiagonals();
 
     }
 
     private void checkHorizontals() {
         for(int i = 0; i < board.length; i++) {
             int consecuitive = 0;
-            Player lastToken = 0;
+            Player lastToken = null;
             for(int j = 0; j < board[i].length; j++) {
                 if(board[i][j] == lastToken && lastToken != null) {
                     consecuitive++;
@@ -151,10 +127,27 @@ public class Model {
 
         }
 
-
     }
 
     private void checkVertikals() {
-        //TODO...
+        for(int j = 0; j < board[j].length; j++) {
+            int consecuitive = 0;
+            Player lastToken = null;
+            for(int i = 0; i < board.length; i++) {
+                if(board[i][j] == lastToken && lastToken != null) {
+                    consecuitive++;
+                }
+                if(consecuitive == 2) {
+                    gameOver(lastToken);
+                    break;
+                }
+                lastToken = board[i][j];
+            }
+
+        }
+    }
+
+    private void checkDiagonals() {
+
     }
 }
