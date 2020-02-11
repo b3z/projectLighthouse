@@ -4,5 +4,16 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "lighthouse/jetty-client-9.4.8.v20171121.jar",
+        "lighthouse/jetty-http-9.4.8.v20171121.jar",
+        "lighthouse/jetty-io-9.4.8.v20171121.jar",
+        "lighthouse/jetty-util-9.4.8.v20171121.jar",
+        "lighthouse/msgpack-core-0.8.14.jar",
+        "lighthouse/websocket-api-9.4.8.v20171121.jar",
+        "lighthouse/websocket-client-9.4.8.v20171121.jar",
+        "lighthouse/websocket-common-9.4.8.v20171121.jar"
+    ]
 }
