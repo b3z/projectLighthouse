@@ -14,6 +14,7 @@
         "lighthouse/msgpack-core-0.8.14.jar",
         "lighthouse/websocket-api-9.4.8.v20171121.jar",
         "lighthouse/websocket-client-9.4.8.v20171121.jar",
-        "lighthouse/websocket-common-9.4.8.v20171121.jar"
+        "lighthouse/websocket-common-9.4.8.v20171121.jar",
+        "libs/**/*.jar"
     ]
 }
