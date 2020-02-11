@@ -60,20 +60,24 @@ public class Model {
      * places a token in the selected column.
      */
     public void placeToken() {
+        //find out, where to place the token
         int i = BOARD_HEIGHT -1;
         while(board[currentColumn][i] != null) {
             i--;
         }
-        board[currentColumn][i] = currentPlayer;
+        board[currentColumn][i] = currentPlayer;    //place token
+
+        updateViews();
+        if(hasWon(currentColumn, i, currentPlayer)) {      //check if player has won
+            gameOver(currentPlayer);
+        }
+        
         //TODO weil unschön...
         if(currentPlayer == player1) {
             currentPlayer = player2;
         }else {
             currentPlayer = player1;
         }
-        updateViews();
-        checkStatus();
-        
     }
 
     /**
@@ -82,6 +86,12 @@ public class Model {
      */
     public void changeColumn(Direction dir) {
         currentColumn = currentColumn + dir.getInt();
+        if(currentColumn < 0) {
+            currentColumn = BOARD_WIDTH - 1;
+        }
+        if(currentColumn >= BOARD_WIDTH) {
+            currentColumn = 0;
+        }
     }
     /**
      * updates both views.
@@ -100,54 +110,92 @@ public class Model {
         // lighthouseView.gameWon(winner);
     }
 
-    /**
-     * checks Status of game.
-     */
-    private void checkStatus() {
-        checkHorizontals();
-        checkVertikals();
-        checkDiagonals();
+    private boolean hasWon(int x, int y, Player player) {
 
-    }
-
-    private void checkHorizontals() {
+        //check the horizontal
+        int count = 0;
         for(int i = 0; i < board.length; i++) {
-            int consecuitive = 0;
-            Player lastToken = null;
-            for(int j = 0; j < board[i].length; j++) {
-                if(board[i][j] == lastToken && lastToken != null) {
-                    consecuitive++;
-                }
-                if(consecuitive == 2) {
-                    gameOver(lastToken);
-                    break;
-                }
-                lastToken = board[i][j];
+            if(board[i][y] == player) {
+                count++;
+            }else {
+                count = 0;
             }
-
+            if(count == 4) {
+                return true;
+            }
         }
 
-    }
-
-    private void checkVertikals() {
-        for(int j = 0; j < board[j].length; j++) {
-            int consecuitive = 0;
-            Player lastToken = null;
-            for(int i = 0; i < board.length; i++) {
-                if(board[i][j] == lastToken && lastToken != null) {
-                    consecuitive++;
-                }
-                if(consecuitive == 2) {
-                    gameOver(lastToken);
-                    break;
-                }
-                lastToken = board[i][j];
+        //check vertikal
+        count = 0;
+        for(int i = 0; i < board[x].length; i++) {
+            if(board[x][i] == player) {
+                count++;
+            }else {
+                count = 0;
             }
-
+            if(count == 4) {
+                return true;
+            }
         }
+
+        //check diagonal
+        
+        //TODO weil scheiße...
+        
+
+
+        return false;
     }
 
-    private void checkDiagonals() {
 
-    }
+    // /**
+    //  * checks Status of game.
+    //  */
+    // private void checkStatus() {
+    //     checkHorizontals();
+    //     checkVertikals();
+    //     checkDiagonals();
+
+    // }
+
+    // private void checkHorizontals() {
+    //     for(int i = 0; i < board.length; i++) {
+    //         int consecuitive = 0;
+    //         Player lastToken = null;
+    //         for(int j = 0; j < board[i].length; j++) {
+    //             if(board[i][j] == lastToken && lastToken != null) {
+    //                 consecuitive++;
+    //             }
+    //             if(consecuitive == 2) {
+    //                 gameOver(lastToken);
+    //                 break;
+    //             }
+    //             lastToken = board[i][j];
+    //         }
+
+    //     }
+
+    // }
+
+    // private void checkVertikals() {
+    //     for(int j = 0; j < board[j].length; j++) {
+    //         int consecuitive = 0;
+    //         Player lastToken = null;
+    //         for(int i = 0; i < board.length; i++) {
+    //             if(board[i][j] == lastToken && lastToken != null) {
+    //                 consecuitive++;
+    //             }
+    //             if(consecuitive == 2) {
+    //                 gameOver(lastToken);
+    //                 break;
+    //             }
+    //             lastToken = board[i][j];
+    //         }
+
+    //     }
+    // }
+
+    // private void checkDiagonals() {
+        
+    // }
 }
