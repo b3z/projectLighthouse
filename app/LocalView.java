@@ -1,9 +1,8 @@
 package app;
 
+import java.awt.Color;
+
 import acm.graphics.GCompound;
-import acm.program.GraphicsProgram;
-import app.GridPiece;
-import app.Model;
 
 /**
  * The local view on our computer. Aka. the GUI the users sees on his pc.
@@ -34,9 +33,18 @@ class LocalView extends GCompound implements View {
         for (int x = 0; x < gridPieces.length; x++) { // iterate through the rows.
 			for (int y = 0; y < gridPieces[x].length; y++) { // iterate through the columns.
                 gridPieces[x][y] = new GridPiece();
+                gridPieces[x][y].setToken(Color.GREEN);
+                gridPieces[x][y].setLocation(x*100, y*100);
                 this.add(gridPieces[x][y]);
+
+                System.out.println(gridPieces[x][y].getLocation());
             }
         }
+
+        // Das hier wird auch nicht gezeichnet.
+     //   add(new GridPiece(), 100, 100);
+     //   add(new GridPiece(), 100, 200);
+
     }
     /**
      * Updates the Game UI.
