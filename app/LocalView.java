@@ -13,6 +13,9 @@ class LocalView extends GCompound implements View {
     /** The grid pieces the game grid is built from. 0,0 ist oben links, x,y */
     private GridPiece [][] gridPieces;
 
+    /** saves the last selected column so we can toggle it again. */
+    private int lastSelectedColumn = -1;
+
     /**
      * Init LocalView.
      * 
@@ -51,5 +54,16 @@ class LocalView extends GCompound implements View {
                 gridPieces[x][y].setToken(model.getPlayerColorAt(x, y));
             }
         }
+    }
+
+    /**
+     * Shows selected row.
+     * @param column which is selected.
+     */
+    public void viewSelected(int column) {
+        if(this.lastSelectedColumn != -1)
+            this.gridPieces[this.lastSelectedColumn][1].toggleSelected();
+        this.gridPieces[column][0].toggleSelected();
+        this.lastSelectedColumn = column;
     }
 }
