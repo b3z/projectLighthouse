@@ -133,6 +133,7 @@ public class Model {
      * @param winner the player that won the game.
      */
     private void gameOver(Player winner) {
+        System.out.println("Player " + winner.getID() + " has won. @Luca implement gameWon method!!");
         // localView.gameWon(winner);
         // lighthouseView.gameWon(winner);
     }
