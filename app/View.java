@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import app.Model;
 
 /**
@@ -12,7 +13,8 @@ interface View {
      * Called by Model which calls it on changes.
      * 
      * @param model Model of the game.
+     * @param changes is a arraylist of changed tokens.
      */
-    public void update(Model model);
+    public void update(Model model, ArrayList<Point> changes);
 
 }
