@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Model {
 
     private LocalView localView;
-    // private LighthouseView lighthouseView;
+    private LighthouseView lighthouseView;
     private int currentColumn;
 
     /**
@@ -24,7 +24,7 @@ public class Model {
     private Player currentPlayer;
 
     /**
-     * The playing board, in which an empty space in indicated as 0, player 1 as 1 and player two as 2.
+     * The playing board, in which an empty spot is indicated as null.
      */
     private Player[][] board;
 
@@ -40,7 +40,13 @@ public class Model {
 
 
 
-
+    /**
+     * The model constructor.
+     * @param localView reference to the local view.
+     * @param lighthouseView reference to the lighthouse view.
+     * @param width the width of the playing board.
+     * @param height the height of the playing board.
+     */
     public Model(LocalView localView, LighthouseView lighthouseView, int width, int height) {
         this.localView = localView;
         this.lighthouseView = lighthouseView;
@@ -93,6 +99,17 @@ public class Model {
             currentColumn = 0;
         }
     }
+
+    /**
+     * returns the color of the  player who has a token at that spot. @null if empty.
+     * @param x the x postion on the playing board.
+     * @param y the y postion on the playing board.
+     * @return the Color of that spot.
+     */
+    public Color getPlayerColorAt(int x, int y) {
+        return board[x][y].getColor();
+    }
+
     /**
      * updates both views.
      */
@@ -146,56 +163,4 @@ public class Model {
 
         return false;
     }
-
-
-    // /**
-    //  * checks Status of game.
-    //  */
-    // private void checkStatus() {
-    //     checkHorizontals();
-    //     checkVertikals();
-    //     checkDiagonals();
-
-    // }
-
-    // private void checkHorizontals() {
-    //     for(int i = 0; i < board.length; i++) {
-    //         int consecuitive = 0;
-    //         Player lastToken = null;
-    //         for(int j = 0; j < board[i].length; j++) {
-    //             if(board[i][j] == lastToken && lastToken != null) {
-    //                 consecuitive++;
-    //             }
-    //             if(consecuitive == 2) {
-    //                 gameOver(lastToken);
-    //                 break;
-    //             }
-    //             lastToken = board[i][j];
-    //         }
-
-    //     }
-
-    // }
-
-    // private void checkVertikals() {
-    //     for(int j = 0; j < board[j].length; j++) {
-    //         int consecuitive = 0;
-    //         Player lastToken = null;
-    //         for(int i = 0; i < board.length; i++) {
-    //             if(board[i][j] == lastToken && lastToken != null) {
-    //                 consecuitive++;
-    //             }
-    //             if(consecuitive == 2) {
-    //                 gameOver(lastToken);
-    //                 break;
-    //             }
-    //             lastToken = board[i][j];
-    //         }
-
-    //     }
-    // }
-
-    // private void checkDiagonals() {
-        
-    // }
 }
