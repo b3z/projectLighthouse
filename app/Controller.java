@@ -1,16 +1,15 @@
 package app;
 
-import acm.graphics.GCanvas;
 import acm.program.GraphicsProgram;
 import java.awt.event.*;
 
 public class Controller extends GraphicsProgram {
 
     private Model model;
-    private GCanvas frame;
+    private GraphicsProgram frame;
 
 
-    public Controller(Model model, GCanvas frame) {
+    public Controller(Model model, GraphicsProgram frame) {
         this.model = model;
         this.frame = frame;
 
