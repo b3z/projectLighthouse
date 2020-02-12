@@ -121,6 +121,14 @@ public class Model {
     }
 
     /**
+     * returns the selected column.
+     * @return the column that is selected.
+     */
+    public int getSelectedColumn() {
+        return currentColumn;
+    }
+
+    /**
      * updates both views.
      */
     private void updateViews() {
