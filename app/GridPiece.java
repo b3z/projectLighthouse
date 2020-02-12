@@ -8,7 +8,7 @@ import java.awt.Color;
 class GridPiece{
 
     /** The GridPiece size. We only use circles and quadratic graphics. */
-    private final int SIZE = 20; // it would make sense to declare this static. Anyway there is no reason.
+    public static final int SIZE = 20; // it would make sense to declare this static. Anyway there is no reason.
 
 
     /** Rect which defines the GridPiece. */
@@ -22,8 +22,8 @@ class GridPiece{
      * Initializes a GridPiece with non set token.
      */
     public GridPiece() {
-       this.rect = new GRect(this.SIZE, this.SIZE);
-       this.arc = new GArc(this.SIZE-2, this.SIZE-2, 0, 360);
+       this.rect = new GRect(GridPiece.SIZE, GridPiece.SIZE);
+       this.arc = new GArc(GridPiece.SIZE-2, GridPiece.SIZE-2, 0, 360);
     }
 
     public void setToken(Color color) {
