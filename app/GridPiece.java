@@ -12,8 +12,7 @@ import acm.graphics.GRectangle;
 class GridPiece extends GObject {
 
     /** The GridPiece size. We only use circles and quadratic graphics. */
-    public static final int SIZE = 100; // it would make sense to declare this static. Anyway there is no reason.
-
+    public static final int SIZE = 50; 
     /** Rect which defines the GridPiece. */
     private GRect rect;
 
@@ -23,20 +22,26 @@ class GridPiece extends GObject {
     private GOval arc;
 
     /**
+     * The general board color. TODO Might be changeable in the settings!?
+     */
+    private Color boardColor = new Color(214, 186, 0);
+
+    /**
+     * Offset of circle.
+     */
+    private final double OFFSET = 2.5;
+
+    /**
      * Constructor for GridPiece Initializes a GridPiece with non set token.
      */
     public GridPiece() {
         // init rect and arc with their sizes.
         this.rect = new GRect(GridPiece.SIZE, GridPiece.SIZE);
-        this.arc = new GOval(GridPiece.SIZE - 5, GridPiece.SIZE - 5);
+        this.arc = new GOval(GridPiece.SIZE - this.OFFSET * 2, GridPiece.SIZE - this.OFFSET * 2);
 
         // set the rects colors.
         this.rect.setFilled(true);
-        this.rect.setColor(Color.YELLOW);
-
-        // should be that location by default, just to make it clear.
-        this.rect.setLocation(0, 0);
-        this.arc.setLocation(0, 0);
+        this.rect.setColor(this.boardColor);
 
         this.arc.setFilled(true);
 
@@ -63,7 +68,7 @@ class GridPiece extends GObject {
     @Override
     public void setLocation(double x, double y) {
         this.rect.setLocation(x, y);
-        this.arc.setLocation(x, y);
+        this.arc.setLocation(x+this.OFFSET, y+this.OFFSET);
     }
 
     /**
