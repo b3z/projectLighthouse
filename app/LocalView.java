@@ -27,7 +27,7 @@ class LocalView extends View {
      * @param model the Model
      */
     @Override
-    private void update(Model model) {
+    public void update(Model model) {
         //TODO implement
     }
 }
