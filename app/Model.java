@@ -39,6 +39,8 @@ public class Model {
      */
     private final int BOARD_HEIGHT;
 
+    private ArrayList<Point> changedPoints = new ArrayList<Point>();
+
 
 
     /**
@@ -77,6 +79,7 @@ public class Model {
         }
         board[currentColumn][i] = currentPlayer;    //place token
 
+        changedPoints.add(new Point(currentColumn, i));
         updateViews();
         if(hasWon(currentColumn, i, currentPlayer)) {      //check if player has won
             gameOver(currentPlayer);
@@ -95,6 +98,7 @@ public class Model {
      * @param dir the cahnged direction.
      */
     public void changeColumn(Direction dir) {
+        changedPoints.add(new Point(currentColumn, 0));
         currentColumn = currentColumn + dir.getInt();
         if(currentColumn < 0) {
             currentColumn = BOARD_WIDTH - 1;
@@ -102,6 +106,8 @@ public class Model {
         if(currentColumn >= BOARD_WIDTH) {
             currentColumn = 0;
         }
+        changedPoints.add(new Point(currentColumn, 0));
+        updateViews();
     }
 
     /**
@@ -132,7 +138,8 @@ public class Model {
      * updates both views.
      */
     private void updateViews() {
-        localView.update(this);
+        localView.update(this, changedPoints);
+        changedPoints.clear();
         // lighthouseView.update(this);
     }
 
