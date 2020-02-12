@@ -39,6 +39,9 @@ public class Model {
      */
     private final int BOARD_HEIGHT;
 
+    /**
+     * A list of every changed point.
+     */
     private ArrayList<Point> changedPoints = new ArrayList<Point>();
 
 
@@ -135,12 +138,20 @@ public class Model {
     }
 
     /**
+     * Gets the active Player.
+     * @return the @Player, whos turn it is.
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
      * updates both views.
      */
     private void updateViews() {
         localView.update(this, changedPoints);
-        changedPoints.clear();
         // lighthouseView.update(this);
+        changedPoints.clear();
     }
 
     /**
@@ -173,7 +184,7 @@ public class Model {
                 count = 0;
             }
             if(count == 4) {
-                return true;
+                return true;    //four connected tokens found.
             }
         }
 
@@ -186,57 +197,55 @@ public class Model {
                 count = 0;
             }
             if(count == 4) {
-                return true;
+                return true;    //four connected tokens found.
             }
         }
 
         //check diagonal
         
-        // //first diagonal
-        // int tempx = x;
-        // int tempy = y;
+        //first diagonal
+        int tempx = x;
+        int tempy = y;
 
-        // while(tempx != 0 && tempy != 0) {
-        //     tempx--;
-        //     tempy--;
-        // }
-        // count = 0;
-        // while(tempx < board.length && tempy < board[tempx].length) {
-        //     if(board[tempx][tempy] == player) {
-        //         count++;
-        //     }else {
-        //         count = 0;
-        //     }
-        //     if(count == 4) {
-        //         return true;
-        //     }
-        //     tempx++;
-        //     tempy++;
-        // }
+        while(tempx != 0 && tempy != 0) {   //find a good start point
+            tempx--;
+            tempy--;
+        }
+        count = 0;
+        while(tempx < board.length && tempy < board[tempx].length) {
+            if(board[tempx][tempy] == player) {
+                count++;
+            }else {
+                count = 0;
+            }
+            if(count == 4) {
+                return true;    //four connected tokens found.
+            }
+            tempx++;
+            tempy++;
+        }
 
-        // //second diagonal
-        // tempx = x;
-        // tempy = y;
+        //second diagonal
+        tempx = x;
+        tempy = y;
 
-        // while(tempx != board.length && tempy != 0) {
-        //     tempx++;
-        //     tempy--;
-        // }
-        // count = 0;
-        // while(tempx >= 0 && tempy < board[tempx].length) {
-        //     if(board[tempx][tempy] == player) {
-        //         count++;
-        //     }else {
-        //         count = 0;
-        //     }
-        //     if(count == 4) {
-        //         return true;
-        //     }
-        //     tempx--;
-        //     tempy++;
-        // }
-        
-
+        while(tempx != board.length - 1 && tempy != 0) {    //find a good start point
+            tempx++;
+            tempy--;
+        }
+        count = 0;
+        while(tempx >= 0 && tempy < board[tempx].length) {
+            if(board[tempx][tempy] == player) {
+                count++;
+            }else {
+                count = 0;
+            }
+            if(count == 4) {
+                return true;    //four connected tokens found.
+            }
+            tempx--;
+            tempy++;
+        }
 
         return false;
     }
