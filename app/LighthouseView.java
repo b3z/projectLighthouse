@@ -1,3 +1,5 @@
-public class LighthouseView {
+package app;
+
+class LighthouseView {
     
 }
