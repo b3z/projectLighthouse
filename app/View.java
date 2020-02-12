@@ -1,23 +1,11 @@
 package app;
 
-import java.awt.Color;
 import app.Model;
 
 /**
- * Superclass of views.
- * @param <Model>
+ * Inteface‚ views.
  */
-abstract class View {
-
-    /** Player A color. */
-    private Color playerAColor;
-    /** Player B color. */
-    private Color playerBColor;
-
-    /** Game Grid width. */
-    private int gridWidth;
-    /** Game Grid height. */
-    private int gridHeight;
+interface View {
 
     /**
      * Updates the view.
@@ -25,8 +13,6 @@ abstract class View {
      * 
      * @param model Model of the game.
      */
-    public void update(Model model) {
-        
-    }
+    public void update(Model model);
 
 }
