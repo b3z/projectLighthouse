@@ -1,9 +1,6 @@
 package app;
 
-import java.awt.Dimension;
-
 import acm.program.GraphicsProgram;
-import apple.laf.JRSUIConstants.Widget;
 
 class Main extends GraphicsProgram {
 

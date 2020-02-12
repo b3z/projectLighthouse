@@ -114,6 +114,9 @@ public class Model {
         if(x > board.length || y > board[x].length || x < 0 || y < 0) {
             throw new IllegalArgumentException("x, y müssen innerhalb des Spielbrettts liegen: x= " + x + " y= " + y);
         }
+        if(board[x][y] == null) {
+            return null;
+        }
         return board[x][y].getColor();
     }
 
@@ -173,49 +176,49 @@ public class Model {
 
         //check diagonal
         
-        //first diagonal
-        int tempx = x;
-        int tempy = y;
+        // //first diagonal
+        // int tempx = x;
+        // int tempy = y;
 
-        while(tempx != 0 && tempy != 0) {
-            tempx--;
-            tempy--;
-        }
-        count = 0;
-        while(tempx < board.length && tempy < board[tempx].length) {
-            if(board[tempx][tempy] == player) {
-                count++;
-            }else {
-                count = 0;
-            }
-            if(count == 4) {
-                return true;
-            }
-            tempx++;
-            tempy++;
-        }
+        // while(tempx != 0 && tempy != 0) {
+        //     tempx--;
+        //     tempy--;
+        // }
+        // count = 0;
+        // while(tempx < board.length && tempy < board[tempx].length) {
+        //     if(board[tempx][tempy] == player) {
+        //         count++;
+        //     }else {
+        //         count = 0;
+        //     }
+        //     if(count == 4) {
+        //         return true;
+        //     }
+        //     tempx++;
+        //     tempy++;
+        // }
 
-        //second diagonal
-        tempx = x;
-        tempy = y;
+        // //second diagonal
+        // tempx = x;
+        // tempy = y;
 
-        while(tempx != board.length && tempy != 0) {
-            tempx++;
-            tempy--;
-        }
-        count = 0;
-        while(tempx >= 0 && tempy < board[tempx].length) {
-            if(board[tempx][tempy] == player) {
-                count++;
-            }else {
-                count = 0;
-            }
-            if(count == 4) {
-                return true;
-            }
-            tempx--;
-            tempy++;
-        }
+        // while(tempx != board.length && tempy != 0) {
+        //     tempx++;
+        //     tempy--;
+        // }
+        // count = 0;
+        // while(tempx >= 0 && tempy < board[tempx].length) {
+        //     if(board[tempx][tempy] == player) {
+        //         count++;
+        //     }else {
+        //         count = 0;
+        //     }
+        //     if(count == 4) {
+        //         return true;
+        //     }
+        //     tempx--;
+        //     tempy++;
+        // }
         
 
 
