@@ -31,6 +31,12 @@ class GridPiece extends GObject {
      */
     private final double OFFSET = 2.5;
 
+
+    /**
+     * Represents weather self is selected or not.
+     */
+    private boolean isSelected = false;
+
     /**
      * Constructor for GridPiece Initializes a GridPiece with non set token.
      */
@@ -57,6 +63,17 @@ class GridPiece extends GObject {
             this.arc.setColor(Color.WHITE);
         else 
             this.arc.setColor(color);
+    }
+
+    /**
+     * Toggles and shows a piece as selected or not.
+     */
+    public void toggleSelected() {
+        this.isSelected = this.isSelected ? false : true;
+        if(this.isSelected)
+            this.rect.setColor(Color.WHITE);
+        else
+            this.rect.setColor(this.boardColor);
     }
 
     /**
