@@ -25,6 +25,9 @@ public class Controller extends GraphicsProgram {
             case KeyEvent.VK_RIGHT:
                 model.changeColumn(Direction.RIGHT);
                 break;
+            case KeyEvent.VK_ENTER:
+                model.placeToken();
+                break;
         }
     }
 }
