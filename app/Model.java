@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Model {
 
     private LocalView localView;
-    private LighthouseView lighthouseView;
+    // private LighthouseView lighthouseView;
     private int currentColumn;
 
     /**
