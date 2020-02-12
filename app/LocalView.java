@@ -33,18 +33,11 @@ class LocalView extends GCompound implements View {
         for (int x = 0; x < gridPieces.length; x++) { // iterate through the rows.
 			for (int y = 0; y < gridPieces[x].length; y++) { // iterate through the columns.
                 gridPieces[x][y] = new GridPiece();
-                gridPieces[x][y].setLocation(x*100, y*100);
-                gridPieces[x][y].setToken(Color.GREEN);
+                gridPieces[x][y].setLocation(x*GridPiece.SIZE, y*GridPiece.SIZE);
+                gridPieces[x][y].setToken(null);
                 this.add(gridPieces[x][y]);
-
-                System.out.println(gridPieces[x][y].getLocation());
             }
         }
-
-        // Das hier wird auch nicht gezeichnet.
-     //   add(new GridPiece(), 100, 100);
-     //   add(new GridPiece(), 100, 200);
-
     }
     /**
      * Updates the Game UI.
@@ -53,6 +46,10 @@ class LocalView extends GCompound implements View {
      */
     @Override
     public void update(Model model) {
-        //TODO implement
+        for (int x = 0; x < gridPieces.length; x++) { // iterate through the rows.
+            for (int y = 0; y < gridPieces[x].length; y++) { // iterate through the columns.
+                gridPieces[x][y].setToken(model.getPlayerColorAt(x, y));
+            }
+        }
     }
 }
