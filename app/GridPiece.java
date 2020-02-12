@@ -39,9 +39,13 @@ class GridPiece extends GObject {
         this.rect.setLocation(0, 0);
         this.arc.setLocation(0, 0);
 
-        
-   }
 
+    }
+
+    /**
+     * Set a token, aka the color of the circle.
+     * @param color of thr circle/token.
+     */
     public void setToken(Color color) {
         if (color == null)
             this.arc.setFilled(false);
@@ -49,8 +53,22 @@ class GridPiece extends GObject {
             this.arc.setFilled(true);
             this.arc.setFillColor(color);
         }
+
+        System.out.println(this.rect.getLocation());
     }
 
+    /**
+     * Set the GridPiece location, including the rect and arc.
+     */
+    @Override
+    public void setLocation(double x, double y) {
+        this.rect.setLocation(x, y);
+        this.arc.setLocation(x, y);
+    }
+
+    /**
+     * Paint the GridPiece with rect and arc.
+     */
     @Override
     public void paint(Graphics g) {
         this.rect.paint(g);
