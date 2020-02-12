@@ -3,7 +3,7 @@ package app;
 import acm.program.GraphicsProgram;
 import java.awt.event.*;
 
-public class Controller extends GraphicsProgram {
+public class Controller implements KeyListener {
 
     private Model model;
     private GraphicsProgram frame;
@@ -13,7 +13,7 @@ public class Controller extends GraphicsProgram {
         this.model = model;
         this.frame = frame;
 
-        frame.addKeyListener(this);
+        frame.addKeyListeners(this);
 
     }
 
@@ -33,5 +33,17 @@ public class Controller extends GraphicsProgram {
                 System.out.println("Token placed");
                 break;
         }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
