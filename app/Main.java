@@ -4,6 +4,7 @@ import acm.program.GraphicsProgram;
 
 class Main extends GraphicsProgram {
 
+    // in tokens.
     private final int WIDTH = 14;
     private final int HEIGHT = 28;
 
@@ -26,5 +27,6 @@ class Main extends GraphicsProgram {
     public static void main(String[] args) {
         //this is the main.
         System.out.println("Hallo Welt! Hallo Felix!");
+        new Main().start();
     }
 }
