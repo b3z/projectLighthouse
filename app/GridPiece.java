@@ -57,9 +57,6 @@ class GridPiece extends GObject {
             this.arc.setColor(Color.WHITE);
         else 
             this.arc.setColor(color);
-
-
-        System.out.println(this.rect.getLocation());
     }
 
     /**
@@ -67,6 +64,7 @@ class GridPiece extends GObject {
      */
     @Override
     public void setLocation(double x, double y) {
+        assert x < 0 | y < 0 : "Expected positiv cordinates."; // validating cordinates.
         this.rect.setLocation(x, y);
         this.arc.setLocation(x+this.OFFSET, y+this.OFFSET);
     }
