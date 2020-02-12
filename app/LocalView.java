@@ -33,8 +33,8 @@ class LocalView extends GCompound implements View {
         for (int x = 0; x < gridPieces.length; x++) { // iterate through the rows.
 			for (int y = 0; y < gridPieces[x].length; y++) { // iterate through the columns.
                 gridPieces[x][y] = new GridPiece();
-                gridPieces[x][y].setToken(Color.GREEN);
                 gridPieces[x][y].setLocation(x*100, y*100);
+                gridPieces[x][y].setToken(Color.GREEN);
                 this.add(gridPieces[x][y]);
 
                 System.out.println(gridPieces[x][y].getLocation());

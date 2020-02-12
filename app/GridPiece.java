@@ -1,13 +1,12 @@
 package app;
 
-import acm.graphics.GArc;
-import acm.graphics.GCompound;
-import acm.graphics.GObject;
-import acm.graphics.GRect;
-import acm.graphics.GRectangle;
-
 import java.awt.Color;
 import java.awt.Graphics;
+
+import acm.graphics.GObject;
+import acm.graphics.GOval;
+import acm.graphics.GRect;
+import acm.graphics.GRectangle;
 
 /** A piece of the game grid. */
 class GridPiece extends GObject {
@@ -21,7 +20,7 @@ class GridPiece extends GObject {
     /**
      * The circle inside which represents the palyers token. Not set = not filled.
      */
-    private GArc arc;
+    private GOval arc;
 
     /**
      * Constructor for GridPiece Initializes a GridPiece with non set token.
@@ -29,15 +28,17 @@ class GridPiece extends GObject {
     public GridPiece() {
         // init rect and arc with their sizes.
         this.rect = new GRect(GridPiece.SIZE, GridPiece.SIZE);
-        this.arc = new GArc(GridPiece.SIZE - 2, GridPiece.SIZE - 2, 0, 360);
+        this.arc = new GOval(GridPiece.SIZE - 5, GridPiece.SIZE - 5);
 
         // set the rects colors.
         this.rect.setFilled(true);
-        this.rect.setFillColor(Color.RED);
+        this.rect.setColor(Color.YELLOW);
 
         // should be that location by default, just to make it clear.
         this.rect.setLocation(0, 0);
         this.arc.setLocation(0, 0);
+
+        this.arc.setFilled(true);
 
 
     }
@@ -48,11 +49,10 @@ class GridPiece extends GObject {
      */
     public void setToken(Color color) {
         if (color == null)
-            this.arc.setFilled(false);
-        else {
-            this.arc.setFilled(true);
-            this.arc.setFillColor(color);
-        }
+            this.arc.setColor(Color.WHITE);
+        else 
+            this.arc.setColor(color);
+
 
         System.out.println(this.rect.getLocation());
     }
