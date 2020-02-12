@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Model {
 
@@ -69,6 +70,9 @@ public class Model {
         //find out, where to place the token
         int i = BOARD_HEIGHT -1;
         while(board[currentColumn][i] != null) {
+            if(i == 0) {
+                return;
+            }
             i--;
         }
         board[currentColumn][i] = currentPlayer;    //place token
@@ -102,11 +106,14 @@ public class Model {
 
     /**
      * returns the color of the  player who has a token at that spot. @null if empty.
-     * @param x the x postion on the playing board.
-     * @param y the y postion on the playing board.
+     * @param x the x postion on the playing board. Has to be between 0 and @BOARD_WIDTH.
+     * @param y the y postion on the playing board. Has to be between 0 and @BOARD_HEIGHT.
      * @return the Color of that spot.
      */
     public Color getPlayerColorAt(int x, int y) {
+        if(x > board.length || y > board[x].length || x < 0 || y < 0) {
+            throw new IllegalArgumentException("x, y müssen innerhalb des Spielbrettts liegen: x= " + x + " y= " + y);
+        }
         return board[x][y].getColor();
     }
 
@@ -127,7 +134,16 @@ public class Model {
         // lighthouseView.gameWon(winner);
     }
 
+    /**
+     * checks the game status.
+     * @param x the changed x position.
+     * @param y the chenged y position.
+     * @param player the player who changed the postition.
+     * @return 
+     */
     private boolean hasWon(int x, int y, Player player) {
+
+        //TODO verschönern, weil code duplikate und so
 
         //check the horizontal
         int count = 0;
@@ -157,7 +173,49 @@ public class Model {
 
         //check diagonal
         
-        //TODO weil scheiße...
+        //first diagonal
+        int tempx = x;
+        int tempy = y;
+
+        while(tempx != 0 && tempy != 0) {
+            tempx--;
+            tempy--;
+        }
+        count = 0;
+        while(tempx < board.length && tempy < board[tempx].length) {
+            if(board[tempx][tempy] == player) {
+                count++;
+            }else {
+                count = 0;
+            }
+            if(count == 4) {
+                return true;
+            }
+            tempx++;
+            tempy++;
+        }
+
+        //second diagonal
+        tempx = x;
+        tempy = y;
+
+        while(tempx != board.length && tempy != 0) {
+            tempx++;
+            tempy--;
+        }
+        count = 0;
+        while(tempx >= 0 && tempy < board[tempx].length) {
+            if(board[tempx][tempy] == player) {
+                count++;
+            }else {
+                count = 0;
+            }
+            if(count == 4) {
+                return true;
+            }
+            tempx--;
+            tempy++;
+        }
         
 
 
