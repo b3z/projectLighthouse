@@ -139,8 +139,8 @@ public class Model {
      */
     private void updateViews() {
         localView.update(this, changedPoints);
+        lighthouseView.update(this, changedPoints);
         changedPoints.clear();
-        // lighthouseView.update(this);
     }
 
     /**
