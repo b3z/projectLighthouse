@@ -3,10 +3,19 @@ package app;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * the model of this program. This is where the magic happens.
+ */
 public class Model {
 
-    private LocalView localView;
-    private LighthouseView lighthouseView;
+    /**
+     * a lsit of every view.
+     */
+    private ArrayList<View> views = new ArrayList<View>();
+
+    /**
+     * The column that is currently selected.
+     */
     private int currentColumn;
 
     /**
@@ -39,6 +48,9 @@ public class Model {
      */
     private final int BOARD_HEIGHT;
 
+    /**
+     * A list of every changed point.
+     */
     private ArrayList<Point> changedPoints = new ArrayList<Point>();
 
 
@@ -51,8 +63,10 @@ public class Model {
      * @param height the height of the playing board.
      */
     public Model(LocalView localView, LighthouseView lighthouseView, int width, int height) {
-        this.localView = localView;
-        this.lighthouseView = lighthouseView;
+
+        views.add(localView);
+        views.add(lighthouseView);
+
         this.BOARD_HEIGHT = height;
         this.BOARD_WIDTH = width;
 
@@ -81,8 +95,9 @@ public class Model {
 
         changedPoints.add(new Point(currentColumn, i));
         updateViews();
-        if(hasWon(currentColumn, i, currentPlayer)) {      //check if player has won
-            gameOver(currentPlayer);
+        ArrayList<Point> connected = hasWon(currentColumn, i, currentPlayer);
+        if(connected != null) {      //check if player has won
+            gameOver(currentPlayer, connected);
         }
         
         //TODO weil unschön...
@@ -135,22 +150,33 @@ public class Model {
     }
 
     /**
+     * Gets the active Player.
+     * @return the @Player, whos turn it is.
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
      * updates both views.
      */
     private void updateViews() {
-        localView.update(this, changedPoints);
-        lighthouseView.update(this, changedPoints);
+        for(View view : views) {
+            view.update(this, changedPoints);
+        }
         changedPoints.clear();
     }
 
     /**
      * notifies the views of the winner.
      * @param winner the player that won the game.
+     * @param points the winning points.
      */
-    private void gameOver(Player winner) {
+    private void gameOver(Player winner, ArrayList<Point> points) {
         System.out.println("Player " + winner.getID() + " has won. @Luca implement gameWon method!!");
-        // localView.gameWon(winner);
-        // lighthouseView.gameWon(winner);
+        for(View view : views) {
+            // view.gameWon(winner, points);
+        }
     }
 
     /**
@@ -160,84 +186,83 @@ public class Model {
      * @param player the player who changed the postition.
      * @return 
      */
-    private boolean hasWon(int x, int y, Player player) {
+    private ArrayList<Point> hasWon(int x, int y, Player player) {
 
         //TODO verschönern, weil code duplikate und so
 
+        ArrayList<Point> connectedPoints = new ArrayList<Point>();
+
         //check the horizontal
-        int count = 0;
         for(int i = 0; i < board.length; i++) {
             if(board[i][y] == player) {
-                count++;
+                connectedPoints.add(new Point(i, y));
             }else {
-                count = 0;
+                connectedPoints.clear();
             }
-            if(count == 4) {
-                return true;
+            if(connectedPoints.size() == 4) {
+                return connectedPoints;    //four connected tokens found.
             }
         }
 
         //check vertikal
-        count = 0;
+        connectedPoints.clear();
         for(int i = 0; i < board[x].length; i++) {
             if(board[x][i] == player) {
-                count++;
+                connectedPoints.add(new Point(x, i));
             }else {
-                count = 0;
+                connectedPoints.clear();
             }
-            if(count == 4) {
-                return true;
+            if(connectedPoints.size() == 4) {
+                return connectedPoints;    //four connected tokens found.
             }
         }
 
         //check diagonal
         
-        // //first diagonal
-        // int tempx = x;
-        // int tempy = y;
+        //first diagonal
+        int tempx = x;
+        int tempy = y;
 
-        // while(tempx != 0 && tempy != 0) {
-        //     tempx--;
-        //     tempy--;
-        // }
-        // count = 0;
-        // while(tempx < board.length && tempy < board[tempx].length) {
-        //     if(board[tempx][tempy] == player) {
-        //         count++;
-        //     }else {
-        //         count = 0;
-        //     }
-        //     if(count == 4) {
-        //         return true;
-        //     }
-        //     tempx++;
-        //     tempy++;
-        // }
+        while(tempx != 0 && tempy != 0) {   //find a good start point
+            tempx--;
+            tempy--;
+        }
+        connectedPoints.clear();
+        while(tempx < board.length && tempy < board[tempx].length) {
+            if(board[tempx][tempy] == player) {
+                connectedPoints.add(new Point(tempx, tempy));
+            }else {
+                connectedPoints.clear();
+            }
+            if(connectedPoints.size() == 4) {
+                return connectedPoints;    //four connected tokens found.
+            }
+            tempx++;
+            tempy++;
+        }
 
-        // //second diagonal
-        // tempx = x;
-        // tempy = y;
+        //second diagonal
+        tempx = x;
+        tempy = y;
 
-        // while(tempx != board.length && tempy != 0) {
-        //     tempx++;
-        //     tempy--;
-        // }
-        // count = 0;
-        // while(tempx >= 0 && tempy < board[tempx].length) {
-        //     if(board[tempx][tempy] == player) {
-        //         count++;
-        //     }else {
-        //         count = 0;
-        //     }
-        //     if(count == 4) {
-        //         return true;
-        //     }
-        //     tempx--;
-        //     tempy++;
-        // }
-        
+        while(tempx != board.length - 1 && tempy != 0) {    //find a good start point
+            tempx++;
+            tempy--;
+        }
+        connectedPoints.clear();
+        while(tempx >= 0 && tempy < board[tempx].length) {
+            if(board[tempx][tempy] == player) {
+                connectedPoints.add(new Point(tempx, tempy));
+            }else {
+                connectedPoints.clear();
+            }
+            if(connectedPoints.size() == 4) {
+                return connectedPoints;    //four connected tokens found.
+            }
+            tempx--;
+            tempy++;
+        }
 
-
-        return false;
+        return null;
     }
 }
