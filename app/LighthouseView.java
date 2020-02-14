@@ -8,8 +8,8 @@ import lighthouse.LighthouseDisplay;
 
 class LighthouseView implements View {
 
-    private static final int DISPLAY_WIDTH = 14;
-    private static final int DISPLAY_HEIGHT = 28;
+    private static final int DISPLAY_WIDTH = 28;
+    private static final int DISPLAY_HEIGHT = 14;
 
     private byte[] data = new byte[DISPLAY_WIDTH * DISPLAY_HEIGHT * 3];
     private LighthouseDisplay display;
@@ -38,16 +38,16 @@ class LighthouseView implements View {
         for(int x = 0; x < DISPLAY_WIDTH; x += 3) {
             for(int y = 0; y < DISPLAY_HEIGHT; y++) {
                 Color color = new Color(255, 255, 255);
-                data[getDisplayIndex(x, y)] = (byte) color.getRed();
-                data[getDisplayIndex(x, y) + 1] = (byte) color.getRed();
-                data[getDisplayIndex(x, y) + 2] = (byte) color.getRed();
+                data[getPixelIndex(x, y)] = (byte) color.getRed();
+                data[getPixelIndex(x, y) + 1] = (byte) color.getRed();
+                data[getPixelIndex(x, y) + 2] = (byte) color.getRed();
             }
         }
         // for(int y = 0; y < DISPLAY_HEIGHT - 1; y += 3) {
         //     Color color = new Color(255, 255, 255);
-        //     data[getDisplayIndex(x, y)] = (byte) color.getRed();
-        //     data[getDisplayIndex(x, y) + 1] = (byte) color.getRed();
-        //     data[getDisplayIndex(x, y) + 2] = (byte) color.getRed();
+        //     data[getPixelIndex(x, y)] = (byte) color.getRed();
+        //     data[getPixelIndex(x, y) + 1] = (byte) color.getRed();
+        //     data[getPixelIndex(x, y) + 2] = (byte) color.getRed();
         // }
 
         try {
@@ -68,12 +68,15 @@ class LighthouseView implements View {
             if(color == null) {
                 color = new Color(0, 0, 0);
             }
+            //for tokens of the size 2x2
             for(int i = 0; i < 2; i++) {
+                for(int j = 0; j < 2; j++) {
                 
-                data[getDisplayIndex((1 + p.getX() * 3) + i, p.getY() * 2)] = (byte) color.getRed();
-                data[getDisplayIndex((1 + p.getX() * 3) + i, p.getY() * 2) + 1] = (byte) color.getGreen();
-                data[getDisplayIndex((1 + p.getX() * 3) + i, p.getY() * 2) + 2] = (byte) color.getBlue();
+                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 0] = (byte) color.getRed();
+                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 1] = (byte) color.getGreen();
+                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 2] = (byte) color.getBlue();
 
+                }
             }
 
 
@@ -94,24 +97,14 @@ class LighthouseView implements View {
         //     for(int i = startPixel.getX(); i < endPixel.getX(); i++) {
         //         for(int j = startPixel.getY(); j < endPixel.getY(); j++) {
         //             data[3] = (byte) Color.RED.getRed();
-        //             data[getDisplayIndex(i, j) + 0] = (byte) color.getRed();
-        //             data[getDisplayIndex(i, j) + 1] = (byte) color.getGreen();
-        //             data[getDisplayIndex(i, j) + 2] = (byte) color.getBlue();
+        //             data[getPixelIndex(i, j) + 0] = (byte) color.getRed();
+        //             data[getPixelIndex(i, j) + 1] = (byte) color.getGreen();
+        //             data[getPixelIndex(i, j) + 2] = (byte) color.getBlue();
         //         }
         //     }
         // }
 
-        try {
-
-            //TODO Ich habe keinen plan wie man das Bild hier codiert.
-            
-           // for (Point p : changes)
-             //   data[0] = ;
-
-         //    for(int i = 0; i<data.length; i++)
-           //     this.data[i] = 1; 
-
-            
+        try {            
             this.display.sendImage(this.data);
         } catch (IOException e) {
             System.out.println("Connection failed: " + e.getMessage());
@@ -119,13 +112,38 @@ class LighthouseView implements View {
         }
     }
 
+    @Override
+    public void gameWon(Model model, Player winner, ArrayList<Point> winningPoints) {
+        
+        for(Point p : winningPoints) {
+            Color color = new Color(0, 255, 0);
+
+            for(int i = 0; i < 2; i++) {
+                for(int j = 0; j < 2; j++) {
+                
+                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 0] = (byte) color.getRed();
+                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 1] = (byte) color.getGreen();
+                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 2] = (byte) color.getBlue();
+
+                }
+            }
+
+            try {            
+                this.display.sendImage(this.data);
+            } catch (IOException e) {
+                System.out.println("Connection failed: " + e.getMessage());
+                e.printStackTrace();
+            }
+    }
+
+    }
     /**
      * converts a point on the Display to the index inside its array.
      * @param x x value.
      * @param y y value.
      * @return the index inside the data array.
      */
-    private int getDisplayIndex(int x, int y) {
+    private int getPixelIndex(int x, int y) {
         return (y * DISPLAY_WIDTH + x) * 3;
     }
 
@@ -142,4 +160,5 @@ class LighthouseView implements View {
         return (int) ((m - rmin) / (double) (rmax - rmin) * (tmax - tmin) + tmin);
 
     }
+
 }

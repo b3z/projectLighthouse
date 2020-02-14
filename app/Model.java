@@ -175,7 +175,7 @@ public class Model {
     private void gameOver(Player winner, ArrayList<Point> points) {
         System.out.println("Player " + winner.getID() + " has won. @Luca implement gameWon method!!");
         for(View view : views) {
-            // view.gameWon(winner, points);
+            view.gameWon(this, winner, points);
         }
     }
 

@@ -1,5 +1,6 @@
 package app;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import acm.graphics.GCompound;
@@ -41,7 +42,7 @@ class LocalView extends GCompound implements View {
             }
         }
     }
-
+    
     /**
      * Updates the Game UI.
      * 
@@ -52,13 +53,23 @@ class LocalView extends GCompound implements View {
     public void update(Model model, ArrayList <Point> changes) {
         //update changed Tokens.
         for(Point p: changes)
-            gridPieces[p.getX()][p.getY()].setToken(model.getPlayerColorAt(p.getX(), p.getY()));
-
+        gridPieces[p.getX()][p.getY()].setToken(model.getPlayerColorAt(p.getX(), p.getY()));
+        
         // update selected column.
         this.viewSelected(model.getSelectedColumn());
         this.repaint();
     }
+    
+    @Override
+    public void gameWon(Model model, Player winner, ArrayList<Point> winningPoints) {
+        
+        //TODO @Luca mach das bitte schöner, aber ich wollte einfach erstmal was haben ;)
+        for(Point p : winningPoints) {
+            gridPieces[p.getX()][p.getY()].setToken(new Color(0, 255, 0));
+        }
+        this.repaint();
 
+    }
     /**
      * Shows selected row.
      * 
@@ -70,4 +81,5 @@ class LocalView extends GCompound implements View {
         this.gridPieces[column][0].toggleSelected();
         this.lastSelectedColumn = column;
     }
+
 }
