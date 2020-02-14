@@ -68,9 +68,13 @@ class LighthouseView implements View {
             if(color == null) {
                 color = new Color(0, 0, 0);
             }
-            data[getDisplayIndex(1 + p.getX() * 3, p.getY() * 2)] = (byte) color.getRed();
-            data[getDisplayIndex(1 + p.getX() * 3, p.getY() * 2) + 1] = (byte) color.getGreen();
-            data[getDisplayIndex(1 + p.getX() * 3, p.getY() * 2) + 2] = (byte) color.getBlue();
+            for(int i = 0; i < 2; i++) {
+                
+                data[getDisplayIndex((1 + p.getX() * 3) + i, p.getY() * 2)] = (byte) color.getRed();
+                data[getDisplayIndex((1 + p.getX() * 3) + i, p.getY() * 2) + 1] = (byte) color.getGreen();
+                data[getDisplayIndex((1 + p.getX() * 3) + i, p.getY() * 2) + 2] = (byte) color.getBlue();
+
+            }
 
 
         }
