@@ -8,8 +8,8 @@ import lighthouse.LighthouseDisplay;
 
 class LighthouseView implements View {
 
-    private static final int DISPLAY_WIDTH = 14;
-    private static final int DISPLAY_HEIGHT = 28;
+    private static final int DISPLAY_WIDTH = 28;
+    private static final int DISPLAY_HEIGHT = 14;
 
     private byte[] data = new byte[DISPLAY_WIDTH * DISPLAY_HEIGHT * 3];
     private LighthouseDisplay display;
@@ -22,8 +22,8 @@ class LighthouseView implements View {
         // Try connecting to the display
         try {
             display = LighthouseDisplay.getDisplay();
-            display.setUsername("Felioh");
-            display.setToken("API-TOK_N7tj-2yg7-2NOB-CnST-bxCS"); 
+            display.setUsername("b3z");
+            display.setToken("API-TOK_i2wZ-mE7N-NIvV-ZMO4-bIjI"); 
         } catch (Exception e) {
             System.out.println("Connection failed: " + e.getMessage());
             e.printStackTrace();
@@ -35,7 +35,7 @@ class LighthouseView implements View {
      * Generates the lanes.
      */
     private void generateBoard() {
-        for(int x = 0; x < DISPLAY_WIDTH; x += 3) {
+        for(int x = 0; x < DISPLAY_WIDTH; x+=3) {
             for(int y = 0; y < DISPLAY_HEIGHT; y++) {
                 Color color = new Color(255, 255, 255);
                 data[getDisplayIndex(x, y)] = (byte) color.getRed();
