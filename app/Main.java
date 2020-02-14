@@ -5,13 +5,13 @@ import acm.program.GraphicsProgram;
 class Main extends GraphicsProgram {
 
     // in tokens.
-    private final int WIDTH = 6;
+    private final int WIDTH = 9;
     private final int HEIGHT = 7;
 
     public void init() {
         //create the views.
         LocalView localView = new LocalView(WIDTH, HEIGHT);
-        LighthouseView lighthouseView = new LighthouseView();
+        LighthouseView lighthouseView = new LighthouseView(WIDTH, HEIGHT);
 
         
         //add the local view.
