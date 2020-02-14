@@ -29,6 +29,11 @@ public class Model {
     private Player[][] board;
 
     /**
+     * indicates, whether the game is over or not.
+     */
+    private boolean gameOver = false;
+
+    /**
      * width of playing board.
      */
     private final int BOARD_WIDTH;
@@ -76,6 +81,11 @@ public class Model {
      * places a token in the selected column.
      */
     public void placeToken() {
+
+        //dont to anything if the game is over.
+        if(gameOver) {
+            return;
+        }
         //find out, where to place the token
         int i = BOARD_HEIGHT -1;
         while(board[currentPlayer.getSelectedColumn()][i] != null) {
@@ -88,15 +98,23 @@ public class Model {
 
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), i));
         updateViews();
+
+        //GameOver?
         ArrayList<Point> connected = hasWon(currentPlayer.getSelectedColumn(), i, currentPlayer);
         if(connected != null) {      //check if player has won
+            gameOver = true;
             gameOver(currentPlayer, connected);
         }
         
-        //TODO weil unschön...
+        //switches to the next player
         currentPlayer.getTarget().setVisible(false);
         currentPlayer = players[0] == currentPlayer ? players[1] : players[0];
         currentPlayer.getTarget().setVisible(true);
+
+        //checks, whether the player had selected a filled column.
+        if(board[currentPlayer.getSelectedColumn()][0] != null) {
+            changeColumn(Direction.LEFT);
+        }
     }
 
     /**
@@ -104,6 +122,12 @@ public class Model {
      * @param dir the cahnged direction.
      */
     public void changeColumn(Direction dir) {
+
+        //dont do anything if the game is over.
+        if(gameOver) {
+            return;
+        }
+
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
         currentPlayer.changeSelectedColumn(dir.getInt());
         if(currentPlayer.getSelectedColumn() < 0) {
@@ -112,7 +136,15 @@ public class Model {
         if(currentPlayer.getSelectedColumn() >= BOARD_WIDTH) {
             currentPlayer.setSelectedColumn(0);
         }
+
+        //if next column is full
+        if(board[currentPlayer.getSelectedColumn()][0] != null) {
+            changeColumn(dir);
+            //TODO Exceptions.
+            //alle reihen voll, etc.
+        }
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
+
         updateViews();
     }
 
