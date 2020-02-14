@@ -22,15 +22,15 @@ public class Controller implements KeyListener {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 model.changeColumn(Direction.LEFT);
-                System.out.println("Left");
+                // System.out.println("Left");
                 break;
             case KeyEvent.VK_RIGHT:
                 model.changeColumn(Direction.RIGHT);
-                System.out.println("Right");
+                // System.out.println("Right");
                 break;
             case KeyEvent.VK_ENTER:
                 model.placeToken();
-                System.out.println("Token placed");
+                // System.out.println("Token placed");
                 break;
         }
     }

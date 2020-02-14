@@ -14,19 +14,9 @@ public class Model {
     private ArrayList<View> views = new ArrayList<View>();
 
     /**
-     * The column that is currently selected.
+     * an array of both players.
      */
-    private int currentColumn;
-
-    /**
-     * first Player.
-     */
-    private Player player1;
-
-    /**
-     * second player.
-     */
-    private Player player2;
+    private Player[] players = new Player[2];
 
     /**
      * the current Player.
@@ -71,9 +61,12 @@ public class Model {
         this.BOARD_WIDTH = width;
 
         //default player configurations.
-        this.player1 = new Player(1, new Color(0, 0, 255));
-        this.player2 = new Player(2, new Color(255, 0, 0));
-        this.currentPlayer = player1;
+        this.players[0] = new Player(1, new Color(0, 0, 255));
+        this.players[1] = new Player(2, new Color(255, 0, 0));
+        this.currentPlayer = players[0];
+        this.currentPlayer.getTarget().setVisible(true);
+
+        localView.addTargets(players);;
 
         this.board = new Player[width][height];
 
@@ -85,27 +78,25 @@ public class Model {
     public void placeToken() {
         //find out, where to place the token
         int i = BOARD_HEIGHT -1;
-        while(board[currentColumn][i] != null) {
+        while(board[currentPlayer.getSelectedColumn()][i] != null) {
             if(i == 0) {
                 return;
             }
             i--;
         }
-        board[currentColumn][i] = currentPlayer;    //place token
+        board[currentPlayer.getSelectedColumn()][i] = currentPlayer;    //place token
 
-        changedPoints.add(new Point(currentColumn, i));
+        changedPoints.add(new Point(currentPlayer.getSelectedColumn(), i));
         updateViews();
-        ArrayList<Point> connected = hasWon(currentColumn, i, currentPlayer);
+        ArrayList<Point> connected = hasWon(currentPlayer.getSelectedColumn(), i, currentPlayer);
         if(connected != null) {      //check if player has won
             gameOver(currentPlayer, connected);
         }
         
         //TODO weil unschön...
-        if(currentPlayer == player1) {
-            currentPlayer = player2;
-        }else {
-            currentPlayer = player1;
-        }
+        currentPlayer.getTarget().setVisible(false);
+        currentPlayer = players[0] == currentPlayer ? players[1] : players[0];
+        currentPlayer.getTarget().setVisible(true);
     }
 
     /**
@@ -113,15 +104,15 @@ public class Model {
      * @param dir the cahnged direction.
      */
     public void changeColumn(Direction dir) {
-        changedPoints.add(new Point(currentColumn, 0));
-        currentColumn = currentColumn + dir.getInt();
-        if(currentColumn < 0) {
-            currentColumn = BOARD_WIDTH - 1;
+        changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
+        currentPlayer.changeSelectedColumn(dir.getInt());
+        if(currentPlayer.getSelectedColumn() < 0) {
+            currentPlayer.setSelectedColumn(BOARD_WIDTH - 1);
         }
-        if(currentColumn >= BOARD_WIDTH) {
-            currentColumn = 0;
+        if(currentPlayer.getSelectedColumn() >= BOARD_WIDTH) {
+            currentPlayer.setSelectedColumn(0);
         }
-        changedPoints.add(new Point(currentColumn, 0));
+        changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
         updateViews();
     }
 
@@ -146,7 +137,7 @@ public class Model {
      * @return the column that is selected.
      */
     public int getSelectedColumn() {
-        return currentColumn;
+        return currentPlayer.getSelectedColumn();
     }
 
     /**
@@ -173,7 +164,7 @@ public class Model {
      * @param points the winning points.
      */
     private void gameOver(Player winner, ArrayList<Point> points) {
-        System.out.println("Player " + winner.getID() + " has won. @Luca implement gameWon method!!");
+        // System.out.println("Player " + winner.getID() + " has won. @Luca implement gameWon method!!");
         for(View view : views) {
             view.gameWon(this, winner, points);
         }
@@ -264,5 +255,9 @@ public class Model {
         }
 
         return null;
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 }

@@ -11,11 +11,13 @@ import acm.graphics.GCompound;
  */
 class LocalView extends GCompound implements View {
 
+    /**
+     * The general board color. TODO Might be changeable in the settings!?
+     */
+    public static final Color BOARD_COLOR = new Color(214, 186, 0);
+
     /** The grid pieces the game grid is built from. 0,0 ist oben links, x,y */
     private GridPiece[][] gridPieces;
-
-    /** saves the last selected column so we can toggle it again. */
-    private int lastSelectedColumn = -1;
 
     /**
      * Init LocalView.
@@ -41,6 +43,7 @@ class LocalView extends GCompound implements View {
                 this.add(gridPieces[x][y]);
             }
         }
+
     }
     
     /**
@@ -56,7 +59,9 @@ class LocalView extends GCompound implements View {
         gridPieces[p.getX()][p.getY()].setToken(model.getPlayerColorAt(p.getX(), p.getY()));
         
         // update selected column.
-        this.viewSelected(model.getSelectedColumn());
+        Player player = model.getCurrentPlayer();
+        double x = GridPiece.SIZE * player.getSelectedColumn();
+        player.getTarget().move(x - player.getTarget().getX(), 0);
         this.repaint();
     }
     
@@ -70,16 +75,15 @@ class LocalView extends GCompound implements View {
         this.repaint();
 
     }
+
     /**
-     * Shows selected row.
-     * 
-     * @param column which is selected.
+     * initially adding targets to canvas.
+     * @param players
      */
-    private void viewSelected(int column) {
-        if (this.lastSelectedColumn != -1)
-            this.gridPieces[this.lastSelectedColumn][0].toggleSelected();
-        this.gridPieces[column][0].toggleSelected();
-        this.lastSelectedColumn = column;
+    public void addTargets(Player[] players) {
+        for(Player p : players) {
+            add(p.getTarget());
+        }
     }
 
 }

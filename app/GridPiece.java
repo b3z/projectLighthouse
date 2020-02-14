@@ -13,6 +13,7 @@ class GridPiece extends GObject {
 
     /** The GridPiece size. We only use circles and quadratic graphics. */
     public static final int SIZE = 50; 
+    
     /** Rect which defines the GridPiece. */
     private GRect rect;
 
@@ -22,20 +23,9 @@ class GridPiece extends GObject {
     private GOval arc;
 
     /**
-     * The general board color. TODO Might be changeable in the settings!?
-     */
-    private Color boardColor = new Color(214, 186, 0);
-
-    /**
      * Offset of circle.
      */
     private final double OFFSET = 2.5;
-
-
-    /**
-     * Represents weather self is selected or not.
-     */
-    private boolean isSelected = false;
 
     /**
      * Constructor for GridPiece Initializes a GridPiece with non set token.
@@ -47,7 +37,7 @@ class GridPiece extends GObject {
 
         // set the rects colors.
         this.rect.setFilled(true);
-        this.rect.setColor(this.boardColor);
+        this.rect.setColor(LocalView.BOARD_COLOR);
 
         this.arc.setFilled(true);
 
@@ -63,17 +53,6 @@ class GridPiece extends GObject {
             this.arc.setColor(Color.WHITE);
         else 
             this.arc.setColor(color);
-    }
-
-    /**
-     * Toggles and shows a piece as selected or not.
-     */
-    public void toggleSelected() {
-        this.isSelected = this.isSelected ? false : true;
-        if(this.isSelected)
-            this.rect.setColor(Color.WHITE);
-        else
-            this.rect.setColor(this.boardColor);
     }
 
     /**
