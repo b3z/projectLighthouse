@@ -5,8 +5,8 @@ import acm.program.GraphicsProgram;
 class Main extends GraphicsProgram {
 
     // in tokens.
-    private final int WIDTH = 9;
-    private final int HEIGHT = 7;
+    public static final int WIDTH = 9;
+    public static final int HEIGHT = 7;
 
     public void init() {
         //create the views.
