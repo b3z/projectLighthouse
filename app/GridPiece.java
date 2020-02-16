@@ -76,7 +76,6 @@ class GridPiece extends GObject {
 
     @Override
     public GRectangle getBounds() {
-        // TODO Auto-generated method stub
         return null;
     }
 
