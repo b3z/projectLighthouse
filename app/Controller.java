@@ -32,6 +32,8 @@ public class Controller implements KeyListener {
                 model.placeToken();
                 // System.out.println("Token placed");
                 break;
+            case KeyEvent.VK_S:
+                model.SaveGame();
         }
     }
 

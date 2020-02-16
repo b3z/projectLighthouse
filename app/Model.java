@@ -292,4 +292,8 @@ public class Model {
     public Player[] getPlayers() {
         return players;
     }
+
+    public void SaveGame() {
+        GameSaver.saveGame(board, players);
+    }
 }
