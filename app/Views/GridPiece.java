@@ -1,4 +1,4 @@
-package app;
+package app.Views;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,7 +9,7 @@ import acm.graphics.GRect;
 import acm.graphics.GRectangle;
 
 /** A piece of the game grid. */
-class GridPiece extends GObject {
+public class GridPiece extends GObject {
 
     /** The GridPiece size. We only use circles and quadratic graphics. */
     public static final int SIZE = 50; 

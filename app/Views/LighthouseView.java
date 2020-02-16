@@ -1,12 +1,15 @@
-package app;
+package app.Views;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import app.Model;
+import app.Player;
+import app.Point;
 import lighthouse.LighthouseDisplay;
 
-class LighthouseView implements View {
+public class LighthouseView implements View {
 
     private static final int DISPLAY_WIDTH = 28;
     private static final int DISPLAY_HEIGHT = 14;

@@ -1,8 +1,11 @@
 package app;
 
 import acm.program.GraphicsProgram;
+import app.Views.GridPiece;
+import app.Views.LighthouseView;
+import app.Views.LocalView;
 
-class Main extends GraphicsProgram {
+public class Main extends GraphicsProgram {
 
     // Note: window sizes are debendend on the game boards dimension.
     /** Game board width in tokens. (aka columns). */

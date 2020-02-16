@@ -1,15 +1,18 @@
-package app;
+package app.Views;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
 import acm.graphics.GCompound;
+import app.Model;
+import app.Player;
+import app.Point;
 
 /**
  * The local view on our computer. Aka. the GUI the users sees on his pc.
  * Displays the game.
  */
-class LocalView extends GCompound implements View {
+public class LocalView extends GCompound implements View {
 
     /**
      * The general board color. TODO Might be changeable in the settings!?

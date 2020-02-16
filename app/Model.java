@@ -3,6 +3,10 @@ package app;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import app.Views.LighthouseView;
+import app.Views.LocalView;
+import app.Views.View;
+
 /**
  * the model of this program. This is where the magic happens.
  */

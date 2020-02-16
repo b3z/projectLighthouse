@@ -1,4 +1,4 @@
-package app;
+package app.Views;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLine;
