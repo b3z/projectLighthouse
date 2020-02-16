@@ -1,24 +1,36 @@
 package app;
 
 import acm.program.GraphicsProgram;
+import app.Views.GridPiece;
+import app.Views.LighthouseView;
+import app.Views.LocalView;
 
-class Main extends GraphicsProgram {
+public class Main extends GraphicsProgram {
 
-    // in tokens.
-    private final int WIDTH = 9;
-    private final int HEIGHT = 7;
+    // Note: window sizes are debendend on the game boards dimension.
+    /** Game board width in tokens. (aka columns). */
+    public static final int WIDTH = 9;
+    /** Game board height in tokens. (aka rows). */
+    public static final int HEIGHT = 7;
 
+    /** The gui on our pc. */
+    LocalView localView;
+    /** The view which displays the game on the lighthouse. */
+    LighthouseView lighthouseView;
+
+    /**
+     * Initially called on startup.
+     */
     public void init() {
 
         this.setTitle("4 Gewinnt!!");
 
         //create the views.
-        LocalView localView = new LocalView(WIDTH, HEIGHT);
-        LighthouseView lighthouseView = new LighthouseView(WIDTH, HEIGHT);
+        this.localView = new LocalView(WIDTH, HEIGHT);
+        this.lighthouseView = new LighthouseView(WIDTH, HEIGHT);
 
-        
         //add the local view.
-        add(localView);
+        this.add(localView);
         
         //Sets the frame size to the board size (also calculating the height of the frame titlebar.)
         this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);

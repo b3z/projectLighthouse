@@ -1,12 +1,14 @@
-package app;
+package app.Views;
 
 import java.util.ArrayList;
 import app.Model;
+import app.Player;
+import app.Point;
 
 /**
  * Inteface‚ views.
  */
-interface View {
+public interface View {
 
     /**
      * Updates the view.

@@ -1,15 +1,18 @@
-package app;
+package app.Views;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
 import acm.graphics.GCompound;
+import app.Model;
+import app.Player;
+import app.Point;
 
 /**
  * The local view on our computer. Aka. the GUI the users sees on his pc.
  * Displays the game.
  */
-class LocalView extends GCompound implements View {
+public class LocalView extends GCompound implements View {
 
     /**
      * The general board color. TODO Might be changeable in the settings!?
@@ -65,15 +68,25 @@ class LocalView extends GCompound implements View {
         this.repaint();
     }
     
+    /**
+     * Called when a player wins. Displays the winner.
+     * @param model is our model.
+     * @param winner is the player who won.
+     * @param winningPoints are the points which are connected as 4 in a row.
+     */
     @Override
     public void gameWon(Model model, Player winner, ArrayList<Point> winningPoints) {
         
-        //TODO @Luca mach das bitte schöner, aber ich wollte einfach erstmal was haben ;)
-        for(Point p : winningPoints) {
-            gridPieces[p.getX()][p.getY()].setToken(new Color(0, 255, 0));
-        }
-        this.repaint();
+        // make 4 tokens in a row green.
+        for(Point p : winningPoints)
+            gridPieces[p.getX()][p.getY()].setToken(new Color(0, 255, 0));  
 
+        this.repaint(); // repaint window so changes also apply visually.
+
+        //display winner screen
+        WinnerScreen winnerScreen = new WinnerScreen(winner);
+        this.add(winnerScreen);
+        // winnerScreen.sendForward(); // make sure it is in front.
     }
 
     /**

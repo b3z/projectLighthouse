@@ -2,6 +2,9 @@ package app;
 
 import java.awt.Color;
 
+import app.Views.GridPiece;
+import app.Views.Target;
+
 public class Player {
     private final int id;
     private Color color;
