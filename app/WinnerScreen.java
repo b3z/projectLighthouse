@@ -14,6 +14,7 @@ class WinnerScreen extends GCompound {
 
     /**
      * Casual Constructor.
+     * Actually just putting some labels thoghehther.
      * 
      * @param winner the player who won.
      */
