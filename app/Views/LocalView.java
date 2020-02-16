@@ -57,6 +57,16 @@ public class LocalView extends GCompound implements View {
      */
     @Override
     public void update(Model model, ArrayList <Point> changes) {
+
+        //if there are no changed points given update all...
+        if(changes.isEmpty()) {
+            for(int i = 0; i < gridPieces.length; i++) {
+                for(int j = 0; j < gridPieces[i].length; j++) {
+                    gridPieces[i][j].setToken(model.getPlayerColorAt(i, j));
+                }
+            }
+        }
+        
         //update changed Tokens.
         for(Point p: changes)
         gridPieces[p.getX()][p.getY()].setToken(model.getPlayerColorAt(p.getX(), p.getY()));

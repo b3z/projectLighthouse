@@ -75,9 +75,13 @@ public class Model {
         this.currentPlayer = players[0];
         this.currentPlayer.getTarget().setVisible(true);
 
-        localView.addTargets(players);;
+        localView.addTargets(players);
 
-        this.board = new Player[width][height];
+        // this.board = new Player[width][height];
+
+        this.board = GameSaver.loadGame();
+        updateViews();
+
 
     }
 
