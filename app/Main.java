@@ -20,6 +20,8 @@ class Main extends GraphicsProgram {
      */
     public void init() {
 
+        this.setTitle("4 Gewinnt!!");
+
         //create the views.
         this.localView = new LocalView(WIDTH, HEIGHT);
         this.lighthouseView = new LighthouseView(WIDTH, HEIGHT);
