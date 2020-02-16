@@ -53,7 +53,7 @@ public class GameSaver {
 
             reader.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // catching IOExceptions
             e.printStackTrace();
         }
 
@@ -101,7 +101,7 @@ public class GameSaver {
             
             writer.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // catching IOEXceptions
             e.printStackTrace();
         }
 
