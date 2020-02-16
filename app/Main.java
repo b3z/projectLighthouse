@@ -9,6 +9,9 @@ class Main extends GraphicsProgram {
     private final int HEIGHT = 7;
 
     public void init() {
+
+        this.setTitle("4 Gewinnt!!");
+
         //create the views.
         LocalView localView = new LocalView(WIDTH, HEIGHT);
         LighthouseView lighthouseView = new LighthouseView(WIDTH, HEIGHT);
