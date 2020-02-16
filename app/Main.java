@@ -4,18 +4,28 @@ import acm.program.GraphicsProgram;
 
 class Main extends GraphicsProgram {
 
-    // in tokens.
+    // Note: window sizes are debendend on the game boards dimension.
+    /** Game board width in tokens. (aka columns). */
     public static final int WIDTH = 9;
+    /** Game board height in tokens. (aka rows). */
     public static final int HEIGHT = 7;
 
-    public void init() {
-        //create the views.
-        LocalView localView = new LocalView(WIDTH, HEIGHT);
-        LighthouseView lighthouseView = new LighthouseView(WIDTH, HEIGHT);
+    /** The gui on our pc. */
+    LocalView localView;
+    /** The view which displays the game on the lighthouse. */
+    LighthouseView lighthouseView;
 
-        
+    /**
+     * Initially called on startup.
+     */
+    public void init() {
+
+        //create the views.
+        this.localView = new LocalView(WIDTH, HEIGHT);
+        this.lighthouseView = new LighthouseView(WIDTH, HEIGHT);
+
         //add the local view.
-        add(localView);
+        this.add(localView);
         
         //Sets the frame size to the board size (also calculating the height of the frame titlebar.)
         this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);
