@@ -1,6 +1,7 @@
 package app;
 
 import acm.program.GraphicsProgram;
+import app.Model.Model;
 import app.Views.GridPiece;
 import app.Views.LighthouseView;
 import app.Views.LocalView;

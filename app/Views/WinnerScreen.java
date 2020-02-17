@@ -5,7 +5,7 @@ import java.awt.Font;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
-import app.Player;
+import app.Model.Player;
 
 import app.Main;
 

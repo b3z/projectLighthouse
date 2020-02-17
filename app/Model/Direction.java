@@ -1,4 +1,4 @@
-package app;
+package app.Model;
 
 public enum Direction {
     RIGHT(1),

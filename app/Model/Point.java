@@ -1,4 +1,4 @@
-package app;
+package app.Model;
 
 public class Point {
     private int x;

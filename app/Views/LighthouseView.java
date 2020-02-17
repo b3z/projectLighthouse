@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import app.Model;
-import app.Player;
-import app.Point;
+import app.Model.Model;
+import app.Model.Player;
+import app.Model.Point;
 import lighthouse.LighthouseDisplay;
 
 public class LighthouseView implements View {

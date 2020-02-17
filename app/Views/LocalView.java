@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import acm.graphics.GCompound;
-import app.Model;
-import app.Player;
-import app.Point;
+import app.Model.Model;
+import app.Model.Player;
+import app.Model.Point;
 
 /**
  * The local view on our computer. Aka. the GUI the users sees on his pc.
