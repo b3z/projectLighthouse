@@ -50,11 +50,11 @@ public class GameSaver {
 
             //hardcoded size, not nice but I dont care at the moment.
             //probably should be stored al well.
-            Player[][] gameboard = new Player[9][7];
+            Player[][] gameboard = new Player[Main.WIDTH][Main.HEIGHT;
             String line = reader.readLine();
 
-
-            for(int i = 0; i < 9; i++) {
+                //TODO felix replace 9 with Main.WIDTH if it is supposed to be the width 9
+            for(int i = 0; i < 9; i++) { // what is that 9 in the for loop?
                 String[] tokens = line.split(" ");
                 for(int j = 0; j < tokens.length; j++) {
                     switch(tokens[j]) {
