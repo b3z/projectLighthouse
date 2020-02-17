@@ -67,13 +67,13 @@ public class Model {
 
         views.add(localView);
         views.add(lighthouseView);
-
+        
         this.BOARD_HEIGHT = height;
         this.BOARD_WIDTH = width;
         
         //load previous game from file.
-       if(!loadGame) {
-
+        if(!loadGame) {
+            
             //default player configurations.
             this.players[0] = new Player(1, new Color(0, 0, 255));
             this.players[1] = new Player(2, new Color(255, 0, 0));

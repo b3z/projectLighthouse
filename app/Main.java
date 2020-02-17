@@ -41,6 +41,7 @@ public class Main extends GraphicsProgram {
 
         //add the local view.
         this.add(this.localView);
+        this.add(menuView);
 
         //Sets the frame size to the board size (also calculating the height of the frame titlebar.)
         this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);
@@ -77,26 +78,80 @@ public class Main extends GraphicsProgram {
      * That would violate human rights and also discriminate true loving feminists with little white curly haired puppies.
      */
     public void toggleMenu() {
-        System.out.println(this.menuView.getParent() != null);
-        if(this.menuView.getParent() != null) {
-            this.remove(this.menuView);
+        // System.out.println(this.menuView.getParent() != null);
+        if(!menu) {
+            this.menuView.setVisible(false);
             this.localView.setVisible(true);
         }
         else {
-            this.add(this.menuView);
+            this.menuView.setVisible(true);
             this.localView.setVisible(false);
         }
+        menu = !menu;
     }
 
+    /**
+     * Loads the game from file.
+     */
     public void loadGame() {
+        if(menu) {     //dont do anything if the menu isnt open.
+            return;
+        }
+        this.removeAll();
+        //create the views.
+        this.localView = new LocalView(WIDTH, HEIGHT);
+        this.lighthouseView = new LighthouseView(WIDTH, HEIGHT);
+        this.menuView = new MenuView(WIDTH, HEIGHT);
+
+        //add the local view.
+        this.add(this.localView);
+        this.add(menuView);
          //create the model.
          model = new Model(localView, lighthouseView, WIDTH, HEIGHT, true);
 
          //create Controller
-         controller = new Controller(model, this);
+         controller.changeModel(model);
  
          //toggle menu so on start menu is open
          this.toggleMenu();
+    }
+
+    /**
+     * clears the board and starts a new game.
+     */
+    public void newGame() {
+        if(menu) {     //dont do anything if the menu isnt open.
+            return;
+        }
+        removeAll();
+
+        this.localView = new LocalView(WIDTH, HEIGHT);
+        this.lighthouseView = new LighthouseView(WIDTH, HEIGHT);
+        // this.menuView = new MenuView(WIDTH, HEIGHT);
+
+        //add the local view.
+        this.add(this.localView);
+        this.add(menuView);
+
+        //Sets the frame size to the board size (also calculating the height of the frame titlebar.)
+        this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);
+
+        //create the model.
+        model = new Model(localView, lighthouseView, WIDTH, HEIGHT, false);
+
+        //toggle menu so on start menu is open
+        this.toggleMenu();
+    }
+
+    /**
+     * saves the current game in a file.
+     */
+    public void saveGame() {
+        if(menu) {     //dont do anything if the menu isnt open.
+            return;
+        }
+        toggleMenu();
+        model.saveGame();
     }
 
     public static void main(String[] args) {

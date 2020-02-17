@@ -1,7 +1,5 @@
 package app;
 
-import acm.program.GraphicsProgram;
-import app.Views.MenuView;
 import app.Model.Direction;
 import app.Model.Model;
 
@@ -22,6 +20,10 @@ public class Controller implements KeyListener {
 
     }
 
+    public void changeModel(Model model) {
+        this.model = model;
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
 
@@ -39,10 +41,10 @@ public class Controller implements KeyListener {
             case KeyEvent.VK_ESCAPE: this.frame.toggleMenu(); // toggeli tiggeli dooo
                 break;
 
-            case KeyEvent.VK_N: model.newGame();
+            case KeyEvent.VK_N: this.frame.newGame();
                 break;
             
-            case KeyEvent.VK_S: model.saveGame();
+            case KeyEvent.VK_S: this.frame.saveGame();
                 break;
 
             case KeyEvent.VK_L: this.frame.loadGame();
