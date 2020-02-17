@@ -7,6 +7,8 @@ import app.Views.LighthouseView;
 import app.Views.LocalView;
 import app.Views.View;
 
+import app.Model.GameSaver;
+
 /**
  * the model of this program. This is where the magic happens.
  */
@@ -70,14 +72,14 @@ public class Model {
         this.BOARD_WIDTH = width;
         
         //load previous game from file.
-        if(!GameSaver.loadGame(this)) {
+       // if(!GameSaver.loadGame(this)) {
 
             //default player configurations.
             this.players[0] = new Player(1, new Color(0, 0, 255));
             this.players[1] = new Player(2, new Color(255, 0, 0));
             this.currentPlayer = players[0];
             this.board = new GameBoard(width, height);
-        }
+        //}
         this.currentPlayer.getTarget().setVisible(true);
 
         localView.addTargets(players);
@@ -232,8 +234,8 @@ public class Model {
     }
 
     public void loadGame() {
-       // @Felix implement
-       System.err.println("NOT IMPLEMENTED");
+        GameSaver.loadGame(this);
+        updateViews();
     }
 
     public void newGame() {
