@@ -227,7 +227,17 @@ public class Model {
         this.board = new GameBoard(board);
     }
 
-    public void SaveGame() {
+    public void saveGame() {
         GameSaver.saveGame(board.getBoardArray(), players, currentPlayer);
+    }
+
+    public void loadGame() {
+       // @Felix implement
+       System.err.println("NOT IMPLEMENTED");
+    }
+
+    public void newGame() {
+        // implement me!
+        System.err.println("NOT IMPLEMENTED");
     }
 }
