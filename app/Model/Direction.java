@@ -1,5 +1,8 @@
 package app.Model;
 
+/**
+ * A Direction (either left or right).
+ */
 public enum Direction {
     RIGHT(1),
     LEFT(-1);

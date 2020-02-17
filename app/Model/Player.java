@@ -5,6 +5,9 @@ import java.awt.Color;
 import app.Views.GridPiece;
 import app.Views.Target;
 
+/**
+ * a class to represent a player.
+ */
 public class Player {
     private final int id;
     private Color color;

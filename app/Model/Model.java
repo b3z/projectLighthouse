@@ -144,7 +144,7 @@ public class Model {
         }
 
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
-        currentPlayer.changeSelectedColumn(dir.getInt());
+        currentPlayer.changeSelectedColumn(dir.getInt());   //change that palyers selcted column.
         if(currentPlayer.getSelectedColumn() < 0) {
             currentPlayer.setSelectedColumn(BOARD_WIDTH - 1);
         }
@@ -231,17 +231,18 @@ public class Model {
         this.board = new GameBoard(board);
     }
 
+    /**
+     * saves the game.
+     */
     public void saveGame() {
         GameSaver.saveGame(board.getBoardArray(), players, currentPlayer);
     }
 
+    /**
+     * loads game from file.
+     */
     public void loadGame() {
         GameSaver.loadGame(this);
         updateViews();
-    }
-
-    public void newGame() {
-        // implement me!
-        System.err.println("NOT IMPLEMENTED");
     }
 }

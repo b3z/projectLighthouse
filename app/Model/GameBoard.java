@@ -2,6 +2,9 @@ package app.Model;
 
 import java.util.ArrayList;
 
+/**
+ * a class to represent the playing board. and basically do all the thinking that comes with it.
+ */
 public class GameBoard {
 
     private Player[][] board;

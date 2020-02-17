@@ -1,5 +1,8 @@
 package app.Model;
 
+/**
+ * a Point.
+ */
 public class Point {
     private int x;
     private int y;

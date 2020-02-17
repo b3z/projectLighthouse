@@ -14,7 +14,9 @@ public class Main extends GraphicsProgram {
     public static final int WIDTH = 9;
     /** Game board height in tokens. (aka rows). */
     public static final int HEIGHT = 7;
-
+    /**
+     * shows whether the menu is open or not
+     */
     public boolean menu = true;
 
     /** The gui on our pc. */
