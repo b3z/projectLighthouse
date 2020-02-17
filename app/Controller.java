@@ -36,13 +36,18 @@ public class Controller implements KeyListener {
             case KeyEvent.VK_SPACE: model.placeToken();
                 break;
 
-            case KeyEvent.VK_S: model.SaveGame();
-                break;
-
             case KeyEvent.VK_ESCAPE: this.frame.toggleMenu(); // toggeli tiggeli dooo
                 break;
 
-        }
+            case KeyEvent.VK_N: model.newGame();
+                break;
+            
+            case KeyEvent.VK_S: model.saveGame();
+                break;
+
+            case KeyEvent.VK_L: model.loadGame();
+
+        }   
     }
 
     @Override
