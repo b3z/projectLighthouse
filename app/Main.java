@@ -34,7 +34,6 @@ public class Main extends GraphicsProgram {
         this.menuView = new MenuView(WIDTH, HEIGHT);
 
         //add the local view.
-        this.add(this.menuView);
         this.add(this.localView);
 
         //Sets the frame size to the board size (also calculating the height of the frame titlebar.)
@@ -43,8 +42,11 @@ public class Main extends GraphicsProgram {
         //create the model.
         Model model = new Model(localView, lighthouseView, WIDTH, HEIGHT);
 
-        //create COntroller
+        //create Controller
         Controller controller = new Controller(model, this);
+
+        //toggle menu so on start menu is open
+        this.toggleMenu();
 
     }
 
