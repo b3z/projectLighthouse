@@ -31,7 +31,6 @@ public class LocalView extends GCompound implements View {
     public LocalView(int width, int height) {
         this.gridPieces = new GridPiece[width][height]; // x, y
         this.drawBoard();
-
     }
 
     /**
@@ -46,7 +45,6 @@ public class LocalView extends GCompound implements View {
                 this.add(gridPieces[x][y]);
             }
         }
-
     }
     
     /**
@@ -108,5 +106,4 @@ public class LocalView extends GCompound implements View {
             add(p.getTarget());
         }
     }
-
 }
