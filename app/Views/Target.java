@@ -19,7 +19,7 @@ public class Target extends GCompound {
         // this.color = color;
         // this.width = width;
 
-        GOval circle = new GOval(width, width);
+        GOval circle = new GOval(width + GridPiece.OFFSET / 2, width + GridPiece.OFFSET / 2);
         circle.setColor(color);
         add(circle);
 

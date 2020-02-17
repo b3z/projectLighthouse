@@ -1,6 +1,7 @@
 package app;
 
 import acm.program.GraphicsProgram;
+
 import java.awt.event.*;
 
 public class Controller implements KeyListener {
@@ -29,6 +30,7 @@ public class Controller implements KeyListener {
                 // System.out.println("Right");
                 break;
             case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_SPACE:
                 model.placeToken();
                 // System.out.println("Token placed");
                 break;

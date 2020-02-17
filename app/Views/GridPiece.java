@@ -25,7 +25,7 @@ public class GridPiece extends GObject {
     /**
      * Offset of circle.
      */
-    private final double OFFSET = 2.5;
+    public static final double OFFSET = 2.5;
 
     /**
      * Constructor for GridPiece Initializes a GridPiece with non set token.
