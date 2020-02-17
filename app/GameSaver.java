@@ -50,7 +50,7 @@ public class GameSaver {
 
             //hardcoded size, not nice but I dont care at the moment.
             //probably should be stored al well.
-            Player[][] gameboard = new Player[Main.WIDTH][Main.HEIGHT;
+            Player[][] gameboard = new Player[Main.WIDTH][Main.HEIGHT];
             String line = reader.readLine();
 
                 //TODO felix replace 9 with Main.WIDTH if it is supposed to be the width 9
