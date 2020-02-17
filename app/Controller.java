@@ -1,6 +1,8 @@
 package app;
 
 import acm.program.GraphicsProgram;
+import app.Model.Direction;
+import app.Model.Model;
 
 import java.awt.event.*;
 
@@ -18,8 +20,9 @@ public class Controller implements KeyListener {
 
     }
 
+    @Override
     public void keyPressed(KeyEvent e) {
-        // System.out.println(e);
+
         switch(e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
                 model.changeColumn(Direction.LEFT);

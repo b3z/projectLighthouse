@@ -1,4 +1,4 @@
-package app;
+package app.Model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.WriteAbortedException;
 import java.awt.Color;
 
 /**
@@ -42,7 +41,7 @@ public class GameSaver {
                 c[i] = reader.read();
                 reader.readLine();
             }
-            players[1] = new Player(1, new Color(c[0], c[1], c[2]));
+            players[1] = new Player(2, new Color(c[0], c[1], c[2]));
 
             model.setPlayers(players);
 
@@ -100,7 +99,7 @@ public class GameSaver {
         try {
             File file = new File(PATH);
             file.mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(PATH + "GameStatus.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(PATH + "GameStatus.txt", false));
             
             //Storing the palyers.
             for(Player p : players) {

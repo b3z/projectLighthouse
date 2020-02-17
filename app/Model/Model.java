@@ -1,4 +1,4 @@
-package app;
+package app.Model;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Model {
     /**
      * The playing board, in which an empty spot is indicated as null.
      */
-    private Player[][] board;
+    private GameBoard board;
 
     /**
      * indicates, whether the game is over or not.
@@ -76,7 +76,7 @@ public class Model {
             this.players[0] = new Player(1, new Color(0, 0, 255));
             this.players[1] = new Player(2, new Color(255, 0, 0));
             this.currentPlayer = players[0];
-            this.board = new Player[width][height];
+            this.board = new GameBoard(width, height);
         }
         this.currentPlayer.getTarget().setVisible(true);
 
@@ -99,19 +99,19 @@ public class Model {
         }
         //find out, where to place the token
         int i = BOARD_HEIGHT -1;
-        while(board[currentPlayer.getSelectedColumn()][i] != null) {
+        while(board.getPlayerAt(currentPlayer.getSelectedColumn(), i) != null) {
             if(i == 0) {
                 return;
             }
             i--;
         }
-        board[currentPlayer.getSelectedColumn()][i] = currentPlayer;    //place token
+        board.setTokenAt(currentPlayer.getSelectedColumn(), i, currentPlayer);    //place token
 
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), i));
         updateViews();
 
         //GameOver?
-        ArrayList<Point> connected = hasWon(currentPlayer.getSelectedColumn(), i, currentPlayer);
+        ArrayList<Point> connected = board.getStreakAt(currentPlayer.getSelectedColumn(), i);
         if(connected != null) {      //check if player has won
             gameOver = true;
             gameOver(currentPlayer, connected);
@@ -123,7 +123,7 @@ public class Model {
         currentPlayer.getTarget().setVisible(true);
 
         //checks, whether the player had selected a filled column.
-        if(board[currentPlayer.getSelectedColumn()][0] != null) {
+        if(board.getPlayerAt(currentPlayer.getSelectedColumn(), 0) != null) {
             changeColumn(Direction.LEFT);
         }
     }
@@ -149,7 +149,7 @@ public class Model {
         }
 
         //if next column is full
-        if(board[currentPlayer.getSelectedColumn()][0] != null) {
+        if(board.getPlayerAt(currentPlayer.getSelectedColumn(), 0) != null) {
             changeColumn(dir);
             //TODO Exceptions.
             //alle reihen voll, etc.
@@ -166,13 +166,11 @@ public class Model {
      * @return the Color of that spot.
      */
     public Color getPlayerColorAt(int x, int y) {
-        if(x > board.length || y > board[x].length || x < 0 || y < 0) {
-            throw new IllegalArgumentException("x, y müssen innerhalb des Spielbrettts liegen: x= " + x + " y= " + y);
-        }
-        if(board[x][y] == null) {
+        Player p = board.getPlayerAt(x, y);
+        if(p == null) {
             return null;
         }
-        return board[x][y].getColor();
+        return p.getColor();
     }
 
     /**
@@ -213,93 +211,6 @@ public class Model {
         }
     }
 
-    /**
-     * checks the game status.
-     * @param x the changed x position.
-     * @param y the chenged y position.
-     * @param player the player who changed the postition.
-     * @return 
-     */
-    private ArrayList<Point> hasWon(int x, int y, Player player) {
-
-        //TODO verschönern, weil code duplikate und so
-
-        ArrayList<Point> connectedPoints = new ArrayList<Point>();
-
-        //check the horizontal
-        for(int i = 0; i < board.length; i++) {
-            if(board[i][y] == player) {
-                connectedPoints.add(new Point(i, y));
-            }else {
-                connectedPoints.clear();
-            }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints;    //four connected tokens found.
-            }
-        }
-
-        //check vertikal
-        connectedPoints.clear();
-        for(int i = 0; i < board[x].length; i++) {
-            if(board[x][i] == player) {
-                connectedPoints.add(new Point(x, i));
-            }else {
-                connectedPoints.clear();
-            }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints;    //four connected tokens found.
-            }
-        }
-
-        //check diagonal
-        
-        //first diagonal
-        int tempx = x;
-        int tempy = y;
-
-        while(tempx != 0 && tempy != 0) {   //find a good start point
-            tempx--;
-            tempy--;
-        }
-        connectedPoints.clear();
-        while(tempx < board.length && tempy < board[tempx].length) {
-            if(board[tempx][tempy] == player) {
-                connectedPoints.add(new Point(tempx, tempy));
-            }else {
-                connectedPoints.clear();
-            }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints;    //four connected tokens found.
-            }
-            tempx++;
-            tempy++;
-        }
-
-        //second diagonal
-        tempx = x;
-        tempy = y;
-
-        while(tempx != board.length - 1 && tempy != 0) {    //find a good start point
-            tempx++;
-            tempy--;
-        }
-        connectedPoints.clear();
-        while(tempx >= 0 && tempy < board[tempx].length) {
-            if(board[tempx][tempy] == player) {
-                connectedPoints.add(new Point(tempx, tempy));
-            }else {
-                connectedPoints.clear();
-            }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints;    //four connected tokens found.
-            }
-            tempx--;
-            tempy++;
-        }
-
-        return null;
-    }
-
     public Player[] getPlayers() {
         return players;
     }
@@ -313,10 +224,10 @@ public class Model {
     }
 
     protected void setBoard(Player[][] board) {
-        this.board = board;
+        this.board = new GameBoard(board);
     }
 
     public void SaveGame() {
-        GameSaver.saveGame(board, players, currentPlayer);
+        GameSaver.saveGame(board.getBoardArray(), players, currentPlayer);
     }
 }

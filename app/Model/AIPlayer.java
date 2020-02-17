@@ -1,4 +1,4 @@
-package app;
+package app.Model;
 
 import java.awt.Color;
 

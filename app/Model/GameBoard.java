@@ -1,4 +1,4 @@
-package app;
+package app.Model;
 
 import java.util.ArrayList;
 
@@ -11,18 +11,49 @@ public class GameBoard {
 
     }
 
+    public GameBoard(Player[][] board) {
+        this.board = board;
+    }
+
+    /**
+     * returns the player at a specific point.
+     * null if no token placed.
+     * @param x
+     * @param y
+     * @return
+     */
+    public Player getPlayerAt(int x, int y) {
+        if(x > board.length || y > board[x].length || x < 0 || y < 0) {
+            throw new IllegalArgumentException("x, y müssen innerhalb des Spielbrettts liegen: x= " + x + " y= " + y);
+        }
+        return board[x][y];
+    }
+
+    /**
+     * sets a token at a specific position.
+     * @param x
+     * @param y
+     * @param p
+     */
+    public void setTokenAt(int x, int y, Player p) {
+        if(x < 0 || y < 0 || x > board.length || y > board[x].length) {
+            throw new IllegalArgumentException();
+        }
+        board[x][y] = p;
+    }
+
+
     /**
      * returns the highest Streak, that one placement has created.
      * @param x the x postion of that palcement.
      * @param y the y position of that placement.
      * @return the heightest streak found.
      */
-    public int getStreakAt(int x, int y) {
+    public ArrayList<Point> getStreakAt(int x, int y) {
         //TODO verschönern, weil code duplikate und so
 
         Player player = board[x][y];
 
-        int hightestSteak = 0;
 
         ArrayList<Point> connectedPoints = new ArrayList<Point>();
 
@@ -33,13 +64,12 @@ public class GameBoard {
             }else {
                 connectedPoints.clear();
             }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints.size();    //four connected tokens found.
-            }
         }
-
+        if(connectedPoints.size() >= 4) {
+            return connectedPoints;    //four connected tokens found.
+        }
+        
         //check vertikal
-        hightestSteak = Math.max(hightestSteak, connectedPoints.size());
         connectedPoints.clear();
         for(int i = 0; i < board[x].length; i++) {
             if(board[x][i] == player) {
@@ -47,15 +77,14 @@ public class GameBoard {
             }else {
                 connectedPoints.clear();
             }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints.size();    //four connected tokens found.
-            }
         }
-
+        if(connectedPoints.size() >= 4) {
+            return connectedPoints;    //four connected tokens found.
+        }
+        
         //check diagonal
         
         //first diagonal
-        hightestSteak = Math.max(hightestSteak, connectedPoints.size());
         connectedPoints.clear();
         int tempx = x;
         int tempy = y;
@@ -70,15 +99,14 @@ public class GameBoard {
             }else {
                 connectedPoints.clear();
             }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints.size();    //four connected tokens found.
-            }
             tempx++;
             tempy++;
         }
-
+        if(connectedPoints.size() >= 4) {
+            return connectedPoints;    //four connected tokens found.
+        }
+        
         //second diagonal
-        hightestSteak = Math.max(hightestSteak, connectedPoints.size());
         connectedPoints.clear();
         tempx = x;
         tempy = y;
@@ -93,19 +121,23 @@ public class GameBoard {
             }else {
                 connectedPoints.clear();
             }
-            if(connectedPoints.size() == 4) {
-                return connectedPoints.size();    //four connected tokens found.
-            }
             tempx--;
             tempy++;
         }
-
-        return hightestSteak;
+        if(connectedPoints.size() >= 4) {
+            return connectedPoints;    //four connected tokens found.
+        }
+        
+        return null;
     }
 
     public int getHighestStreakFor(Player p) {
 
         //TODO for AIPlayer?
         return 0;
+    }
+
+    public Player[][] getBoardArray() {
+        return board;
     }
 }

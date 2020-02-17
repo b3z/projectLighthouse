@@ -1,9 +1,9 @@
 package app.Views;
 
 import java.util.ArrayList;
-import app.Model;
-import app.Player;
-import app.Point;
+import app.Model.Model;
+import app.Model.Player;
+import app.Model.Point;
 
 /**
  * Inteface‚ views.
