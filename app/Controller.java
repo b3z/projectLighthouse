@@ -45,7 +45,7 @@ public class Controller implements KeyListener {
             case KeyEvent.VK_S: model.saveGame();
                 break;
 
-            case KeyEvent.VK_L: model.loadGame();
+            case KeyEvent.VK_L: this.frame.loadGame();
 
         }   
     }

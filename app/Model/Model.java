@@ -63,7 +63,7 @@ public class Model {
      * @param width the width of the playing board.
      * @param height the height of the playing board.
      */
-    public Model(LocalView localView, LighthouseView lighthouseView, int width, int height) {
+    public Model(LocalView localView, LighthouseView lighthouseView, int width, int height, boolean loadGame) {
 
         views.add(localView);
         views.add(lighthouseView);
@@ -72,14 +72,16 @@ public class Model {
         this.BOARD_WIDTH = width;
         
         //load previous game from file.
-       // if(!GameSaver.loadGame(this)) {
+       if(!loadGame) {
 
             //default player configurations.
             this.players[0] = new Player(1, new Color(0, 0, 255));
             this.players[1] = new Player(2, new Color(255, 0, 0));
             this.currentPlayer = players[0];
             this.board = new GameBoard(width, height);
-        //}
+        }else {
+            GameSaver.loadGame(this);
+        }
         this.currentPlayer.getTarget().setVisible(true);
 
         localView.addTargets(players);

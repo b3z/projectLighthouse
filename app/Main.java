@@ -15,12 +15,18 @@ public class Main extends GraphicsProgram {
     /** Game board height in tokens. (aka rows). */
     public static final int HEIGHT = 7;
 
+    public boolean menu = true;
+
     /** The gui on our pc. */
     LocalView localView;
     /** The view which displays the game on the lighthouse. */
     LighthouseView lighthouseView;
     /** The menu view. */
     MenuView menuView;
+
+    Model model;
+
+    Controller controller;
     /**
      * Initially called on startup.
      */
@@ -40,10 +46,10 @@ public class Main extends GraphicsProgram {
         this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);
 
         //create the model.
-        Model model = new Model(localView, lighthouseView, WIDTH, HEIGHT);
+        model = new Model(localView, lighthouseView, WIDTH, HEIGHT, false);
 
         //create Controller
-        Controller controller = new Controller(model, this);
+        controller = new Controller(model, this);
 
         //toggle menu so on start menu is open
         this.toggleMenu();
@@ -80,6 +86,17 @@ public class Main extends GraphicsProgram {
             this.add(this.menuView);
             this.localView.setVisible(false);
         }
+    }
+
+    public void loadGame() {
+         //create the model.
+         model = new Model(localView, lighthouseView, WIDTH, HEIGHT, true);
+
+         //create Controller
+         controller = new Controller(model, this);
+ 
+         //toggle menu so on start menu is open
+         this.toggleMenu();
     }
 
     public static void main(String[] args) {
