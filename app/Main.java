@@ -139,6 +139,8 @@ public class Main extends GraphicsProgram {
         //create the model.
         model = new Model(localView, lighthouseView, WIDTH, HEIGHT, false);
 
+        controller.changeModel(model);
+
         //toggle menu so on start menu is open
         this.toggleMenu();
     }
