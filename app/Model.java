@@ -68,18 +68,21 @@ public class Model {
 
         this.BOARD_HEIGHT = height;
         this.BOARD_WIDTH = width;
+        
+        //load previous game from file.
+        if(!GameSaver.loadGame(this)) {
 
-        //default player configurations.
-        this.players[0] = new Player(1, new Color(0, 0, 255));
-        this.players[1] = new Player(2, new Color(255, 0, 0));
-        this.currentPlayer = players[0];
+            //default player configurations.
+            this.players[0] = new Player(1, new Color(0, 0, 255));
+            this.players[1] = new Player(2, new Color(255, 0, 0));
+            this.currentPlayer = players[0];
+            this.board = new Player[width][height];
+        }
         this.currentPlayer.getTarget().setVisible(true);
 
         localView.addTargets(players);
 
-        // this.board = new Player[width][height];
 
-        this.board = GameSaver.loadGame();
         updateViews();
 
 
@@ -301,7 +304,19 @@ public class Model {
         return players;
     }
 
+    protected void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    protected void setCurrentPlayer(Player player) {
+        this.currentPlayer = player;
+    }
+
+    protected void setBoard(Player[][] board) {
+        this.board = board;
+    }
+
     public void SaveGame() {
-        GameSaver.saveGame(board, players);
+        GameSaver.saveGame(board, players, currentPlayer);
     }
 }

@@ -3,9 +3,11 @@ package app;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.WriteAbortedException;
 import java.awt.Color;
 
 /**
@@ -16,22 +18,39 @@ public class GameSaver {
 
     private static final String PATH = "./data/";
 
-    public static Player[][] loadGame() {
-
-        //hardcoded size, not nice but I dont care at the moment.
-        //probably should be stored al well.
-        Player[][] gameboard = new Player[9][7];
+    public static boolean loadGame(Model model) {
 
         try {
             File file = new File(PATH);
             file.mkdir();
-            BufferedReader reader = new BufferedReader(new FileReader(PATH + "GameStatus.txt"));
+            
+            BufferedReader reader;
+            try {
+                reader = new BufferedReader(new FileReader(PATH + "GameStatus.txt"));
+            } catch(FileNotFoundException e) {
+                //File doesnt exist.
+                return false;
+            }
+            int[] c = new int[3];
+            for(int i = 0; i < c.length; i++) {
+                c[i] = reader.read();
+                reader.readLine();
+            }
+            Player[] players = new Player[2];
+            players[0] = new Player(1, new Color(c[0], c[1], c[2]));
+            for(int i = 0; i < c.length; i++) {
+                c[i] = reader.read();
+                reader.readLine();
+            }
+            players[1] = new Player(1, new Color(c[0], c[1], c[2]));
 
-            Player player1 = new Player(1, new Color(reader.read()));
-            Player player2 = new Player(2, new Color(reader.read()));
+            model.setPlayers(players);
 
-            reader.readLine();
-            reader.readLine();
+            //decoding the board.
+
+            //hardcoded size, not nice but I dont care at the moment.
+            //probably should be stored al well.
+            Player[][] gameboard = new Player[9][7];
             String line = reader.readLine();
 
 
@@ -40,50 +59,58 @@ public class GameSaver {
                 for(int j = 0; j < tokens.length; j++) {
                     switch(tokens[j]) {
                         case "1":
-                            gameboard[i][j] = player1;
+                            gameboard[i][j] = players[0];
                             break;
                         case "2":
-                            gameboard[i][j] = player2;
+                            gameboard[i][j] = players[1];
                             break;
                     }
                 }
-                System.out.println();
                 line = reader.readLine();
             }
+            
+            if(line == "1") {
+                model.setCurrentPlayer(players[0]);
+            }else {
+                model.setCurrentPlayer(players[1]);
+            }
+
+            model.setBoard(gameboard);
 
             reader.close();
+
+            System.out.println("Game loaded from file sucessfully.");
         } catch (IOException e) {
             // catching IOExceptions
             e.printStackTrace();
+            return false;
         }
 
 
 
-        return gameboard;
+        return true;
     }
     /**
      * Saves the current game. No actual documentation about how it is decoded.
      * @param board the playing board.
      * @param players the two players.
      */
-    public static void saveGame(Player[][] board, Player[] players) {
+    public static void saveGame(Player[][] board, Player[] players, Player currentPlayer) {
 
         try {
             File file = new File(PATH);
             file.mkdir();
             BufferedWriter writer = new BufferedWriter(new FileWriter(PATH + "GameStatus.txt"));
-            // for(Player p : players) {
-            //     writer.write(p.getID() + " ");
-            // }
-            
             
             //Storing the palyers.
             for(Player p : players) {
                 
-                writer.write(p.getColor().getRGB());
-                // writer.write(p.getColor().getRed() + " ");
-                // writer.write(p.getColor().getGreen() + " ");
-                // writer.write(p.getColor().getBlue() + " ");
+                // writer.write(p.getColor().getRGB());
+                writer.write(p.getColor().getRed());
+                writer.newLine();
+                writer.write(p.getColor().getGreen());
+                writer.newLine();
+                writer.write(p.getColor().getBlue());
                 writer.newLine();
             }
 
@@ -98,13 +125,15 @@ public class GameSaver {
                 }
                 writer.newLine();
             }
+            writer.write(currentPlayer.getID() + "");
             
             writer.close();
+
+            System.out.println("Game saved sucessfully.");
         } catch (IOException e) {
             // catching IOEXceptions
             e.printStackTrace();
         }
-
 
     }
 }
