@@ -2,6 +2,7 @@ package app;
 
 import acm.program.GraphicsProgram;
 import app.Model.Model;
+import app.Views.Audio;
 import app.Views.GridPiece;
 import app.Views.LighthouseView;
 import app.Views.LocalView;
@@ -56,6 +57,8 @@ public class Main extends GraphicsProgram {
 
         //toggle menu so on start menu is open
         this.toggleMenu();
+
+        Audio.playBackgroundMusic();
 
     }
 
