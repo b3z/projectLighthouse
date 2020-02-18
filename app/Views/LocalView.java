@@ -63,6 +63,7 @@ public class LocalView extends GCompound implements View {
                     gridPieces[i][j].setToken(model.getPlayerColorAt(i, j));
                 }
             }
+            return;
         }
         
         //update changed Tokens.

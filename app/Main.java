@@ -160,7 +160,9 @@ public class Main extends GraphicsProgram {
 
     public static void main(String[] args) {
         //this is the main.
-        System.out.println("Hallo Welt! Hallo Felix!");
+       // System.out.println("Hallo Welt! Hallo Felix!");
         new Main().start();
+
+        //for(int)
     }
 }

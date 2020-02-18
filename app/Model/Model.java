@@ -12,6 +12,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import app.Views.Audio;
 import app.Views.LighthouseView;
 import app.Views.LocalView;
 import app.Views.View;
@@ -103,27 +104,8 @@ public class Model {
      */
     public void placeToken() {
 
-        AudioInputStream stream;
-        try {
-            stream = AudioSystem.getAudioInputStream(new File("app/Model/Sounds/Sound1.wav").getAbsoluteFile());
-            // create clip reference
-            Clip clip = AudioSystem.getClip();
-            // open audioInputStream to the clip
-            clip.open(stream);
-            clip.start();
-        } catch (UnsupportedAudioFileException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-          
-          
 
+        Audio.playPlacement(); // is this ok for MVC?
         //dont to anything if the game is over.
         if(gameOver) {
             return;
