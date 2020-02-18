@@ -67,9 +67,9 @@ public class GameBoard {
             }else {
                 connectedPoints.clear();
             }
-        }
-        if(connectedPoints.size() >= 4) {
-            return connectedPoints;    //four connected tokens found.
+            if(connectedPoints.size() >= 4) {
+                return connectedPoints;    //four connected tokens found.
+            }
         }
         
         //check vertikal
@@ -80,9 +80,9 @@ public class GameBoard {
             }else {
                 connectedPoints.clear();
             }
-        }
-        if(connectedPoints.size() >= 4) {
-            return connectedPoints;    //four connected tokens found.
+            if(connectedPoints.size() >= 4) {
+                return connectedPoints;    //four connected tokens found.
+            }
         }
         
         //check diagonal
