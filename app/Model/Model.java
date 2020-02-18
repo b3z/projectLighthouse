@@ -105,7 +105,7 @@ public class Model {
 
         AudioInputStream stream;
         try {
-            stream = AudioSystem.getAudioInputStream(new File("app/Model/Sounds/Test2.wav").getAbsoluteFile());
+            stream = AudioSystem.getAudioInputStream(new File("app/Model/Sounds/Sound1.wav").getAbsoluteFile());
             // create clip reference
             Clip clip = AudioSystem.getClip();
             // open audioInputStream to the clip
