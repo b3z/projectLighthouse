@@ -84,6 +84,12 @@ public class LighthouseView implements View {
 
 
         }
+        try {            
+            this.display.sendImage(this.data);
+        } catch (IOException e) {
+            System.out.println("Connection failed: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         // for(Point p : changes) {
         //     // System.out.println(scale(p.getX(), 0, boardWidth, 0 , DISPLAY_WIDTH) + 
@@ -107,12 +113,6 @@ public class LighthouseView implements View {
         //     }
         // }
 
-        try {            
-            this.display.sendImage(this.data);
-        } catch (IOException e) {
-            System.out.println("Connection failed: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     @Override
