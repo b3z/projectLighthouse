@@ -2,12 +2,15 @@ package app.Views;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import acm.util.RandomGenerator;
 
 public class Audio {
 
@@ -31,11 +34,12 @@ public class Audio {
     }
 
     public static void playPlacement() {
-        play("assets/cdsAudio/Sound1.wav");
+        int r = RandomGenerator.getInstance().nextInt(1, 4);
+        play("assets/cdsAudio/placementSound" + r + ".wav");
     }
 
     public static void playWinning() {
-        //TODO implement
+        play("assets/cdsAudio/winningSound.wav");
     }
 
 }

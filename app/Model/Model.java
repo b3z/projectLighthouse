@@ -126,6 +126,7 @@ public class Model {
         //GameOver?
         ArrayList<Point> connected = board.getStreakAt(currentPlayer.getSelectedColumn(), i);
         if(connected != null) {      //check if player has won
+            Audio.playWinning();    //again is this ok in MVC?
             gameOver = true;
             gameOver(currentPlayer, connected);
         }
