@@ -1,7 +1,16 @@
 package app.Model;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import app.Views.LighthouseView;
 import app.Views.LocalView;
@@ -54,41 +63,38 @@ public class Model {
      */
     private ArrayList<Point> changedPoints = new ArrayList<Point>();
 
-
-
     /**
      * The model constructor.
-     * @param localView reference to the local view.
+     * 
+     * @param localView      reference to the local view.
      * @param lighthouseView reference to the lighthouse view.
-     * @param width the width of the playing board.
-     * @param height the height of the playing board.
+     * @param width          the width of the playing board.
+     * @param height         the height of the playing board.
      */
     public Model(LocalView localView, LighthouseView lighthouseView, int width, int height, boolean loadGame) {
 
         views.add(localView);
         views.add(lighthouseView);
-        
+
         this.BOARD_HEIGHT = height;
         this.BOARD_WIDTH = width;
-        
-        //load previous game from file.
-        if(!loadGame) {
-            
-            //default player configurations.
+
+        // load previous game from file.
+        if (!loadGame) {
+
+            // default player configurations.
             this.players[0] = new Player(1, new Color(0, 0, 255));
             this.players[1] = new Player(2, new Color(255, 0, 0));
             this.currentPlayer = players[0];
             this.board = new GameBoard(width, height);
-        }else {
+        } else {
             GameSaver.loadGame(this);
         }
         this.currentPlayer.getTarget().setVisible(true);
 
         localView.addTargets(players);
 
-
         updateViews();
-
 
     }
 
@@ -96,6 +102,27 @@ public class Model {
      * places a token in the selected column.
      */
     public void placeToken() {
+
+        AudioInputStream stream;
+        try {
+            stream = AudioSystem.getAudioInputStream(new File("app/Model/Sounds/Test2.wav").getAbsoluteFile());
+            // create clip reference
+            Clip clip = AudioSystem.getClip();
+            // open audioInputStream to the clip
+            clip.open(stream);
+            clip.start();
+        } catch (UnsupportedAudioFileException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+          
+          
 
         //dont to anything if the game is over.
         if(gameOver) {

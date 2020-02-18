@@ -4,7 +4,6 @@ import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.gui.VPanel;
 
-import java.awt.Button; // we use awt Buttons here because GLabels suck :D
 import java.awt.Font;
 
 /**

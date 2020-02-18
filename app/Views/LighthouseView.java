@@ -46,6 +46,9 @@ public class LighthouseView implements View {
                 data[getPixelIndex(x, y) + 2] = (byte) color.getRed();
             }
         }
+
+        //dynamic approach.
+
         // for(int y = 0; y < DISPLAY_HEIGHT - 1; y += 3) {
         //     Color color = new Color(255, 255, 255);
         //     data[getPixelIndex(x, y)] = (byte) color.getRed();
@@ -91,6 +94,8 @@ public class LighthouseView implements View {
             e.printStackTrace();
         }
 
+        //dynamic approach.
+        
         // for(Point p : changes) {
         //     // System.out.println(scale(p.getX(), 0, boardWidth, 0 , DISPLAY_WIDTH) + 
         //     //     ", " + scale(p.getY(), 0, boardHeight, 0, DISPLAY_HEIGHT));
