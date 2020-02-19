@@ -26,7 +26,7 @@ public class LighthouseView implements View {
         try {
             display = LighthouseDisplay.getDisplay();
             display.setUsername("Felioh");
-            display.setToken("API-TOK_LNzx-9EOl-qlyH-dZEs-R+11"); 
+            display.setToken("API-TOK_NvkJ-da63-Bo5V-KloX-R9gO");
         } catch (Exception e) {
             System.out.println("Connection failed: " + e.getMessage());
             e.printStackTrace();
@@ -38,8 +38,8 @@ public class LighthouseView implements View {
      * Generates the lanes.
      */
     private void generateBoard() {
-        for(int x = 0; x < DISPLAY_WIDTH; x+=3) {
-            for(int y = 0; y < DISPLAY_HEIGHT; y++) {
+        for (int x = 0; x < DISPLAY_WIDTH; x += 3) {
+            for (int y = 0; y < DISPLAY_HEIGHT; y++) {
                 Color color = new Color(255, 255, 255);
                 data[getPixelIndex(x, y)] = (byte) color.getRed();
                 data[getPixelIndex(x, y) + 1] = (byte) color.getRed();
@@ -47,13 +47,13 @@ public class LighthouseView implements View {
             }
         }
 
-        //dynamic approach.
+        // dynamic approach.
 
         // for(int y = 0; y < DISPLAY_HEIGHT - 1; y += 3) {
-        //     Color color = new Color(255, 255, 255);
-        //     data[getPixelIndex(x, y)] = (byte) color.getRed();
-        //     data[getPixelIndex(x, y) + 1] = (byte) color.getRed();
-        //     data[getPixelIndex(x, y) + 2] = (byte) color.getRed();
+        // Color color = new Color(255, 255, 255);
+        // data[getPixelIndex(x, y)] = (byte) color.getRed();
+        // data[getPixelIndex(x, y) + 1] = (byte) color.getRed();
+        // data[getPixelIndex(x, y) + 2] = (byte) color.getRed();
         // }
 
         try {
@@ -69,26 +69,58 @@ public class LighthouseView implements View {
     public void update(Model model, ArrayList<Point> changes) {
         // Send data to the display
 
-        for(Point p : changes) {
-            Color color = model.getPlayerColorAt(p.getX(), p.getY());
-            if(color == null) {
-                color = new Color(0, 0, 0);
-            }
-            //for tokens of the size 2x2
-            for(int i = 0; i < 2; i++) {
-                for(int j = 0; j < 2; j++) {
-                
-                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 0] = (byte) color.getRed();
-                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 1] = (byte) color.getGreen();
-                    data[getPixelIndex((1 + p.getX() * 3) + i, p.getY() * 2 + j) + 2] = (byte) color.getBlue();
+        //rausgenommen, weil unschön..
+        // //show the target
+        // Player currentPlayer = model.getCurrentPlayer();
+        // int targetColumn = currentPlayer.getSelectedColumn();
+        // //for tokens of the size 2x2
+        // for(int i = 0; i < 2; i++) {
+        //     for(int j = 0; j < 2; j++) {
 
+        //         data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 0] = (byte)
+        //         currentPlayer.getColor().getRed();
+        //         data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 1] = (byte)
+        //         currentPlayer.getColor().getGreen();
+        //         data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 2] = (byte)
+        //         currentPlayer.getColor().getBlue();
+
+        //     }
+        // }
+
+        try {
+
+            for (Point p : changes) {
+                Color color = model.getPlayerColorAt(p.getX(), p.getY());
+                if (color == null) {
+                    color = new Color(0, 0, 0);
                 }
+                int y = 0;
+                while (y <= p.getY()) {
+                    // for tokens of the size 2x2
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            if (y != 0) {
+                                data[getPixelIndex((1 + p.getX() * 3) + i, (y - 1) * 2 + j) + 0] = (byte) 0;
+                                data[getPixelIndex((1 + p.getX() * 3) + i, (y - 1) * 2 + j) + 1] = (byte) 0;
+                                data[getPixelIndex((1 + p.getX() * 3) + i, (y - 1) * 2 + j) + 2] = (byte) 0;
+                            }
+                            data[getPixelIndex((1 + p.getX() * 3) + i, y * 2 + j) + 0] = (byte) color.getRed();
+                            data[getPixelIndex((1 + p.getX() * 3) + i, y * 2 + j) + 1] = (byte) color.getGreen();
+                            data[getPixelIndex((1 + p.getX() * 3) + i, y * 2 + j) + 2] = (byte) color.getBlue();
+
+                        }
+                    }
+                    this.display.sendImage(this.data);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    y++;
             }
 
 
-        }
-        try {            
-            this.display.sendImage(this.data);
+            }
         } catch (IOException e) {
             System.out.println("Connection failed: " + e.getMessage());
             e.printStackTrace();
