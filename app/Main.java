@@ -157,7 +157,11 @@ public class Main extends GraphicsProgram {
         this.add(menuView);
 
         //Sets the frame size to the board size (also calculating the height of the frame titlebar.)
-        this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);
+        if(CheckOS.isWin()) {
+            this.setSize(WIDTH * GridPiece.SIZE + 15, HEIGHT * GridPiece.SIZE + 60);
+        }else {
+            this.setSize(WIDTH * GridPiece.SIZE, HEIGHT * GridPiece.SIZE + this.getInsets().top);
+        }
 
         //create the model.
         model = new Model(localView, lighthouseView, WIDTH, HEIGHT, false);
