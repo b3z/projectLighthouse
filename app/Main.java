@@ -8,6 +8,7 @@ import app.Views.GridPiece;
 import app.Views.LighthouseView;
 import app.Views.LocalView;
 import app.Views.MenuView;
+import java.awt.event.*;
 
 public class Main extends GraphicsProgram {
 
@@ -59,6 +60,18 @@ public class Main extends GraphicsProgram {
 
         //create Controller
         controller = new Controller(model, this);
+
+        //Window close listener ;)
+        Runtime.getRuntime().addShutdownHook(new Thread() 
+        { 
+            public void run() 
+            { 
+                System.out.println("Window closing"); 
+                System.out.println("Autosaving...");
+                model.saveGame();
+                lighthouseView.closeConnection();
+            } 
+        }); 
 
         //toggle menu so on start menu is open
         this.toggleMenu();

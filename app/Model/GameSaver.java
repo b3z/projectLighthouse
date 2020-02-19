@@ -14,7 +14,6 @@ import java.awt.Color;
 
 /**
  * saves and loads the game.
- * TODO NullPointerExceptions, file externally edited, etc.
  */
 public class GameSaver {
 
@@ -85,6 +84,10 @@ public class GameSaver {
         } catch (IOException e) {
             // catching IOExceptions
             e.printStackTrace();
+            return false;
+        } catch (NullPointerException e) {
+            System.out.println("The File can not be used, maybe externally edited?!");
+            System.out.println("Please start a new game.");
             return false;
         }
 

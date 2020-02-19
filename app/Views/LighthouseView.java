@@ -175,9 +175,15 @@ public class LighthouseView implements View {
                 System.out.println("Connection failed: " + e.getMessage());
                 e.printStackTrace();
             }
-    }
+        }
 
     }
+
+    public void closeConnection() {
+        display.close();
+        System.out.println("Connection to Lighthouse has been closed.");
+    }
+
     /**
      * converts a point on the Display to the index inside its array.
      * @param x x value.
