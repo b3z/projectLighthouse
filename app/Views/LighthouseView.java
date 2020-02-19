@@ -69,24 +69,6 @@ public class LighthouseView implements View {
     public void update(Model model, ArrayList<Point> changes) {
         // Send data to the display
 
-        //rausgenommen, weil unschön..
-        // //show the target
-        // Player currentPlayer = model.getCurrentPlayer();
-        // int targetColumn = currentPlayer.getSelectedColumn();
-        // //for tokens of the size 2x2
-        // for(int i = 0; i < 2; i++) {
-        //     for(int j = 0; j < 2; j++) {
-
-        //         data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 0] = (byte)
-        //         currentPlayer.getColor().getRed();
-        //         data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 1] = (byte)
-        //         currentPlayer.getColor().getGreen();
-        //         data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 2] = (byte)
-        //         currentPlayer.getColor().getBlue();
-
-        //     }
-        // }
-
         try {
 
             for (Point p : changes) {
@@ -112,13 +94,32 @@ public class LighthouseView implements View {
                     }
                     this.display.sendImage(this.data);
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     y++;
-            }
+                }
 
+                if(y == 1) {
+                    //show the target
+                    Player currentPlayer = model.getCurrentPlayer();
+                    int targetColumn = currentPlayer.getSelectedColumn();
+                    //for tokens of the size 2x2
+                    for(int i = 0; i < 2; i++) {
+                        for(int j = 0; j < 2; j++) {
+
+                            data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 0] = (byte)
+                            currentPlayer.getColor().getRed();
+                            data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 1] = (byte)
+                            currentPlayer.getColor().getGreen();
+                            data[getPixelIndex((1 + targetColumn * 3) + i, 0 + j) + 2] = (byte)
+                            currentPlayer.getColor().getBlue();
+
+                        }
+                    }
+                    display.sendImage(data);
+                }
 
             }
         } catch (IOException e) {
