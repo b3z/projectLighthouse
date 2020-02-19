@@ -33,7 +33,7 @@ public class GridPiece extends GObject {
     public GridPiece() {
         // init rect and arc with their sizes.
         this.rect = new GRect(GridPiece.SIZE, GridPiece.SIZE);
-        this.arc = new GOval(GridPiece.SIZE - this.OFFSET * 2, GridPiece.SIZE - this.OFFSET * 2);
+        this.arc = new GOval(GridPiece.SIZE - GridPiece.OFFSET * 2, GridPiece.SIZE - GridPiece.OFFSET * 2);
 
         // set the rects colors.
         this.rect.setFilled(true);
@@ -62,7 +62,7 @@ public class GridPiece extends GObject {
     public void setLocation(double x, double y) {
         assert x < 0 | y < 0 : "Expected positiv cordinates."; // validating cordinates.
         this.rect.setLocation(x, y);
-        this.arc.setLocation(x+this.OFFSET, y+this.OFFSET);
+        this.arc.setLocation(x+GridPiece.OFFSET, y+GridPiece.OFFSET);
     }
 
     /**

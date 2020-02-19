@@ -1,23 +1,12 @@
 package app.Model;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import app.Views.Audio;
 import app.Views.LighthouseView;
 import app.Views.LocalView;
 import app.Views.View;
-
-import app.Model.GameSaver;
 
 /**
  * the model of this program. This is where the magic happens.
@@ -52,12 +41,12 @@ public class Model {
     /**
      * width of playing board.
      */
-    private final int BOARD_WIDTH;
+    private final int boardWidth;
 
     /**
      * height of playing board.
      */
-    private final int BOARD_HEIGHT;
+    private final int boardHeight;
 
     /**
      * A list of every changed point.
@@ -77,8 +66,8 @@ public class Model {
         views.add(localView);
         views.add(lighthouseView);
 
-        this.BOARD_HEIGHT = height;
-        this.BOARD_WIDTH = width;
+        this.boardHeight = height;
+        this.boardWidth = width;
 
         // load previous game from file.
         if (!loadGame) {
@@ -111,7 +100,7 @@ public class Model {
             return;
         }
         //find out, where to place the token
-        int i = BOARD_HEIGHT -1;
+        int i = boardHeight -1;
         while(board.getPlayerAt(currentPlayer.getSelectedColumn(), i) != null) {
             if(i == 0) {
                 return;
@@ -156,9 +145,9 @@ public class Model {
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
         currentPlayer.changeSelectedColumn(dir.getInt());   //change that palyers selcted column.
         if(currentPlayer.getSelectedColumn() < 0) {
-            currentPlayer.setSelectedColumn(BOARD_WIDTH - 1);
+            currentPlayer.setSelectedColumn(boardWidth - 1);
         }
-        if(currentPlayer.getSelectedColumn() >= BOARD_WIDTH) {
+        if(currentPlayer.getSelectedColumn() >= boardWidth) {
             currentPlayer.setSelectedColumn(0);
         }
 
@@ -175,8 +164,8 @@ public class Model {
 
     /**
      * returns the color of the  player who has a token at that spot. @null if empty.
-     * @param x the x postion on the playing board. Has to be between 0 and @BOARD_WIDTH.
-     * @param y the y postion on the playing board. Has to be between 0 and @BOARD_HEIGHT.
+     * @param x the x postion on the playing board. Has to be between 0 and @boardWidth.
+     * @param y the y postion on the playing board. Has to be between 0 and @boardHeight.
      * @return the Color of that spot.
      */
     public Color getPlayerColorAt(int x, int y) {
