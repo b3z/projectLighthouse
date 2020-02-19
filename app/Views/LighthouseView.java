@@ -25,8 +25,8 @@ public class LighthouseView implements View {
         // Try connecting to the display
         try {
             display = LighthouseDisplay.getDisplay();
-            display.setUsername("Felioh");
-            display.setToken("API-TOK_NvkJ-da63-Bo5V-KloX-R9gO");
+            display.setUsername("b3z");
+            display.setToken("API-TOK_q2qq-0NUY-DX1y-lMLi-JrSc");
         } catch (Exception e) {
             System.out.println("Connection failed: " + e.getMessage());
             e.printStackTrace();
