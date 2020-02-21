@@ -110,25 +110,27 @@ public class Model {
         board.setTokenAt(currentPlayer.getSelectedColumn(), i, currentPlayer);    //place token
 
         changedPoints.add(new Point(currentPlayer.getSelectedColumn(), i));
-        updateViews();
-
+        changedPoints.add(new Point(currentPlayer.getSelectedColumn(), 0));
+        
         //GameOver?
         ArrayList<Point> connected = board.getStreakAt(currentPlayer.getSelectedColumn(), i);
         if(connected != null) {      //check if player has won
             Audio.playWinning();    //again is this ok in MVC?
             gameOver = true;
             gameOver(currentPlayer, connected);
+            return;     //game over dont do anything else
         }
         
         //switches to the next player
         currentPlayer.getTarget().setVisible(false);
         currentPlayer = players[0] == currentPlayer ? players[1] : players[0];
         currentPlayer.getTarget().setVisible(true);
-
+        
         //checks, whether the player had selected a filled column.
         if(board.getPlayerAt(currentPlayer.getSelectedColumn(), 0) != null) {
             changeColumn(Direction.LEFT);
         }
+        updateViews();
     }
 
     /**
