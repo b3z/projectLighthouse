@@ -481,15 +481,15 @@ public class LighthouseDisplay {
 						if (connected && !dataSentSinceLastCheck && lastPacket != null) {
 							synchronized (sendSynchronizer) {
 								// check again just in case it changed
-								if (!dataSentSinceLastCheck) {
-									try {
-										RemoteEndpoint endpoint = session.getRemote();
-										endpoint.sendBytes(lastPacket);
-										endpoint.flush();
-									} catch (IOException e) {
-										e.printStackTrace();
-									}
-								}
+								// if (false) {
+								// 	try {
+								// 		RemoteEndpoint endpoint = session.getRemote();
+								// 		endpoint.sendBytes(lastPacket);
+								// 		endpoint.flush();
+								// 	} catch (IOException e) {
+								// 		e.printStackTrace();
+								// 	}
+								// }
 							}
 						}
 						dataSentSinceLastCheck = false;
