@@ -4,4 +4,4 @@
 
 Built on Java SE 11 and acm 2.0
 
-![Lighouse demo](demo.HEIC)
+![Lighouse demo](demo.jpg)
